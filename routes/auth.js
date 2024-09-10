@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../model/userModel');
+const bcrypt = require("bcrypt")
+
+
 
 // Define specific routes for each page
 router.get('/about', (req, res) => {
@@ -39,23 +42,39 @@ router.get('/staff', (req, res) => {
     res.render('staff');
 });
 
-router.post("/register", async(req,res)=>
+router.post("/register", (req,res)=>
 {
     try{
         let {email,password,fullName}= req.body
+        bcrypt.genSalt(10,(err,salt)=>
+        {
+            bcrypt.hash(password,salt,async(err,hash)=>{
+                if(err)
+                {
+                    res.send(err.message)
+                    
+                }
+                else
+                {
+                    await User.create( {
+                        email,
+                        password,
+                        fullName
+                    })
+                }
+            })
+        })
         // Log the values to the console
-  console.log('Email:', email);
-  console.log('Password:', password);
-  console.log('Full Name:', fullName);
-        // if(!fullname||!email||!password)
+      console.log('Email:', email);
+      console.log('Password:', password);
+      console.log('Full Name:', fullName);
+
+       //making sure nothing remains empty
+        // if(!fullName||!email||!password)
         // {
         //     return res.status(404).send("All fields are required")
         // }
-        await User.create( {
-            email,
-            password,
-            fullName
-        })
+      
     }
    catch(err)
    {
