@@ -61,6 +61,12 @@ router.post("/register", (req,res)=>
                         password,
                         fullName
                     })
+                    // generating the token and setting the secret
+                    let token = jwt.sign({email,id: User._id}, process.env.JWT_SECRET)
+
+                    //setting the token to the frontend
+                     res.cookie("token",token)
+                     res.send("user created succesfully")
                 }
             })
         })
