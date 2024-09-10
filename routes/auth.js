@@ -2,23 +2,30 @@ const express = require('express');
 const router = express.Router();
 const User = require('../model/userModel');
 const bcrypt = require("bcrypt")
-
-
+const {generateToken}= require("../utils/generateToken")
 
 // Define specific routes for each page
-router.get('/about', (req, res) => {
-    res.render('about');
+router.get('/about',(req,res) => 
+{    res.render('about');
+});
+// Define specific routes for each page
+router.get('/admin',(req,res) => 
+{    res.render('admin');
 });
 
-router.get('/register', (req,res) => {
+
+router.get('/register', (req,res) =>
+ {
     res.render('register');
 });
 
-router.get('/contact', (req, res) => {
+router.get('/contact', (req, res) => 
+{
     res.render('contact');
 });
 
-router.get('/elements', (req, res) => {
+router.get('/elements', (req, res) => 
+{
     res.render('elements');
 });
 
@@ -26,19 +33,23 @@ router.get('/gallery', (req, res) => {
     res.render('gallery');
 });
 
-router.get('/login', (req, res) => {
+router.get('/login', (req, res) => 
+{
     res.render('login');
 });
 
-router.get('/news', (req, res) => {
+router.get('/news', (req, res) => 
+{
     res.render('news');
 });
 
-router.get('/signup', (req, res) => {
+router.get('/signup', (req, res) => 
+{
     res.render('signup');
 });
 
-router.get('/staff', (req, res) => {
+router.get('/staff', (req, res) => 
+{
     res.render('staff');
 });
 
@@ -56,17 +67,21 @@ router.post("/register", (req,res)=>
                 }
                 else
                 {
-                    await User.create( {
+                    await User.create(
+                         {
                         email,
                         password,
                         fullName
                     })
                     // generating the token and setting the secret
-                    let token = jwt.sign({email,id: User._id}, process.env.JWT_SECRET)
-
+                    let token= generateToken(User)        
+           
                     //setting the token to the frontend
                      res.cookie("token",token)
-                     res.send("user created succesfully")
+
+                     console.log("user created succesfully")
+
+                   
                 }
             })
         })
@@ -75,11 +90,6 @@ router.post("/register", (req,res)=>
       console.log('Password:', password);
       console.log('Full Name:', fullName);
 
-       //making sure nothing remains empty
-        // if(!fullName||!email||!password)
-        // {
-        //     return res.status(404).send("All fields are required")
-        // }
       
     }
    catch(err)
