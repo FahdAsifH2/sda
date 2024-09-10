@@ -1,7 +1,7 @@
 // userModel.js
 const { connect, Schema, model } = require("mongoose");
 
-// Connect to the MongoDB database
+//Connect to the MongoDB database
 connect("mongodb://localhost:27017/PrepMaster")
   .then(() => console.log("Connected to MongoDB successfully"))
   .catch((err) => console.error("Error connecting to MongoDB:", err));
@@ -10,14 +10,15 @@ connect("mongodb://localhost:27017/PrepMaster")
 const userSchema = new Schema({
   fullName: {
     type: String,
-    minLength: 3,
+    minLength: 3,     
     trim: true,
   },
   email: {
     type: String,
     required: true,
   },
-  password: {
+  password: 
+  {
     type: String,
     required: true,
   },
