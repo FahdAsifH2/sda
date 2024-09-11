@@ -58,7 +58,11 @@ module.exports.loginUser = async(req,res)=>
 
      bcrypt.compare(password,user.password,(err,result)=>
      {
-        console.log("User logged in sucessfully")
-       res.send(result)
+       console.log(result)
+        if(result)
+        {
+            token = generateToken(user)
+            res.cookie(token)
+        }
      })
 }
