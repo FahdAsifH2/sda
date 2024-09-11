@@ -3,6 +3,10 @@ const router = express.Router();
 const User = require('../model/userModel');
 const bcrypt = require("bcrypt")
 const {generateToken}= require("../utils/generateToken")
+const {registerUser,loginUser}= require("../controller/authController")
+
+
+
 
 // Define specific routes for each page
 router.get('/about',(req,res) => 
@@ -16,6 +20,7 @@ router.get('/admin',(req,res) =>
 
 router.get('/register', (req,res) =>
  {
+    console.log("register get")
     res.render('register');
 });
 
@@ -53,52 +58,8 @@ router.get('/staff', (req, res) =>
     res.render('staff');
 });
 
-router.post("/register", (req,res)=>
-{
-    try{
-        let {email,password,fullName}= req.body
-        bcrypt.genSalt(10,(err,salt)=>
-        {
-            bcrypt.hash(password,salt,async(err,hash)=>{
-                if(err)
-                {
-                    res.send(err.message)
-                    
-                }
-                else
-                {
-                    await User.create(
-                         {
-                        email,
-                        password,
-                        fullName
-                    })
-                    // generating the token and setting the secret
-                    let token= generateToken(User)        
-           
-                    //setting the token to the frontend
-                     res.cookie("token",token)
+router.post("/registerUser",registerUser)
 
-                     console.log("user created succesfully")
+router.post("/loginUser",loginUser)
 
-                   
-                }
-            })
-        })
-        // Log the values to the console
-      console.log('Email:', email);
-      console.log('Password:', password);
-      console.log('Full Name:', fullName);
-
-      
-    }
-   catch(err)
-   {
-    console.log(err.message)
-   }
-   
-})
-
-
-
-module.exports = router; // Export the router to be used in other files
+module.exports = router; //Export the router to be used in other files

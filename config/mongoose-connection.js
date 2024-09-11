@@ -10,7 +10,7 @@ async function connectToDB() {
     await mongoose.connect(mongoURL,
        {
       useNewUrlParser: true,
-      useUnifiedTopology: true, // Recommended settings for modern MongoDB drivers
+      useUnifiedTopology: true, 
     });
     dbgr("Connected to MongoDB successfully");
   } catch (err) {

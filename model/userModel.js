@@ -1,7 +1,7 @@
-// userModel.js
 const { connect, Schema, model } = require("mongoose");
+const { roles } = require("../config/roles"); // Import roles configuration
 
-//Connect to the MongoDB database
+// Connect to the MongoDB database
 connect("mongodb://localhost:27017/PrepMaster")
   .then(() => console.log("Connected to MongoDB successfully"))
   .catch((err) => console.error("Error connecting to MongoDB:", err));
@@ -10,35 +10,28 @@ connect("mongodb://localhost:27017/PrepMaster")
 const userSchema = new Schema({
   fullName: {
     type: String,
-    minLength: 3,     
+    minLength: 3,
     trim: true,
   },
   email: {
     type: String,
     required: true,
+    unique: true, // Ensure emails are unique
   },
-  password: 
-  {
+  password: {
     type: String,
     required: true,
   },
+  role: {
+    type: Number,
+    enum: [roles.admin, roles.std, roles.tch], // Reference the roles
+    default: roles.std, // Default role is 'std'
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
-// Create the User model
+// Create and export the User model
 module.exports = model("User", userSchema);
-
-
-
-// //mongo db boiler plate code
-// const mongoose = require("mongoose")
-// mongoose.connect ("mongodb://localhost:27017/PrepMaster")
-
-
-// const userScheema = mongoose.Schema ( {
-//   name: String,
-//   fullName: String,
-//   email : String,
-//   password: String
-// })
-
-// module.exports=mongoose.model("user",userScheema)
