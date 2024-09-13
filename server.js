@@ -20,6 +20,8 @@ app.set('views', path.join(__dirname, 'views'));
 // Serve static files from the "public" directory
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+
 // Define a route for the root path
 app.get('/', (req, res) => {
     res.render('index'); // Ensure you have an index.ejs file

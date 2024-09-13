@@ -1,15 +1,28 @@
 const jwt = require('jsonwebtoken');
 
-
-const generateToken = (user) => 
+class TokenGenerator
 {
-    console.log(process.env.JWT_SECRET)
+  constructor()
+  {
+    if(!TokenGenerator.instance)
+    {
+        TokenGenerator.instance = this
+    }
 
-    return jwt.sign(
-        { email: user.email, id: user._id },  // Use 'user' instead of 'User'
-        process.env.JWT_SECRET // Make sure this environment variable is set
-       
-    );
-};
+    return TokenGenerator.instance
+  }
 
-module.exports = { generateToken }; // Simplified export syntax
+  generateToken(user)
+  {
+   return jwt.sign (
+    
+      {email:user.email,id :user._id},
+      process.env.JWT_SECRET
+    
+   );
+  }
+}
+
+
+const instance = new TokenGenerator()
+module.exports= instance

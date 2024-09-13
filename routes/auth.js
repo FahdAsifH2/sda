@@ -2,24 +2,22 @@ const express = require('express');
 const router = express.Router();
 const User = require('../model/userModel');
 const bcrypt = require("bcrypt")
-const {generateToken}= require("../utils/generateToken")
+const {generateToken} = require("../utils/generateToken")
 const {registerUser,loginUser}= require("../controller/authController")
-
-
 
 
 // Define specific routes for each page
 router.get('/about',(req,res) => 
 {    res.render('about');
 });
+
 // Define specific routes for each page
 router.get('/admin',(req,res) => 
 {    res.render('admin');
 });
 
-
 router.get('/register', (req,res) =>
- {
+{
     console.log("register get")
     res.render('register');
 });
