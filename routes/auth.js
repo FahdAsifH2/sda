@@ -60,4 +60,6 @@ router.post("/registerUser",registerUser)
 
 router.post("/loginUser",loginUser)
 
+
+
 module.exports = router; //Export the router to be used in other files

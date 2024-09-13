@@ -1,5 +1,8 @@
 const jwt = require('jsonwebtoken');
 
+
+
+// singleton design impl
 class TokenGenerator
 {
   constructor()
@@ -14,12 +17,7 @@ class TokenGenerator
 
   generateToken(user)
   {
-   return jwt.sign (
-    
-      {email:user.email,id :user._id},
-      process.env.JWT_SECRET
-    
-   );
+   return jwt.sign ( {email:user.email,id :user._id},process.env.JWT_SECRET,{expiresIn: "10s"} );
   }
 }
 
