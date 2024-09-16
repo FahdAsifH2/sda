@@ -1,23 +1,12 @@
 const mongoose = require("mongoose");
-const dbgr = require("debug")("development:mongoose");
-
-// MongoDB connection string
-const mongoURL = "mongodb://localhost:27017/PrepMaster";
-
-async function connectToDB() {
-  try 
-  {
-    await mongoose.connect(mongoURL,
-       {
-      useNewUrlParser: true,
-      useUnifiedTopology: true, 
-    });
-    dbgr("Connected to MongoDB successfully");
-  } catch (err) {
-    dbgr("Error connecting to MongoDB:", err);
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect(process.env.DB_STRING);
+    console.log("MongoDB Connected: ", conn.connection.host);
+  } catch (error) {
+    console.log("Error:", error);
+    process.exit();
   }
-}
+};
 
-connectToDB(); // Call the function to connect to the database
-
-module.exports = mongoose.connection;
+module.exports = connectDB;
