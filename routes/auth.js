@@ -9,7 +9,10 @@ const {
   registerStudent,
   registerTeacher,
   registerAdmin,
+  verifyOtp,
 } = require("../controller/authController");
+const isLoggedInInstance = require("../middlewares/isLoggedin");
+const { isValidObjectId } = require("mongoose");
 
 // Define specific routes for each page
 router.get("/about", (req, res) => {
@@ -60,6 +63,16 @@ router.post("/register/teacher", registerTeacher);
 
 router.post("/register/admin", registerAdmin);
 
-router.post("/loginUser", loginUser);
+router.post("/login", loginUser);
+
+router.post("/verify", isLoggedInInstance.authenticate, verifyOtp);
+
+router.get(
+  "/protect",
+  isLoggedInInstance.authenticate,
+  isLoggedInInstance.verified,
+  isLoggedInInstance.authorizeStudent,
+  (req, res) => res.send("You are logged in")
+);
 
 module.exports = router;

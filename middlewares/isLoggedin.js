@@ -1,64 +1,76 @@
-const jwt = require("jsonwebtoken")
-const User = require("../model/userModel")
+const jwt = require("jsonwebtoken");
+const User = require("../model/userModel");
+require("dotenv").config();
 
+const checkUser = (userRole, specifiedRole) => {
+  if (userRole === specifiedRole) return true;
+  return false;
+};
 
-class IsloggedIn
-{
-  constructor()
-  {
+class Auth {
+  secret;
+  constructor() {
     this.secret = process.env.JWT_SECRET;
   }
-  
-  handle(req,res,next)
-  {
-    if(!req.cookies.token)
-    {
-      req.flash("Error,You need to login first")
-       
-      return res.redirect("/")
-    }
 
-    try
-    {
-      const decoded = jwt.verify(req.cokkies.token,process.env.JWT)
-      req.user.decoded
-      next()
+  async authenticate(req, res, next) {
+    const token = req.cookies?.token;
+    if (!token) {
+      res.send("No token");
     }
-    catch(err)
-    {
-      req.flash("Error,Invlaid or expired token")
-      return res.redirect("/")
+    try {
+      const secret = process.env.JWT_SECRET;
+      const decoded = jwt.verify(token, secret);
+      const user = await User.findById(decoded.id);
+      req.user = {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        isVerified: user.isVerified,
+        role: user.role,
+      };
+      next();
+    } catch (err) {
+      res.send(err.message);
     }
   }
 
+  verified(req, res, next) {
+    try {
+      if (req.user?.isVerified) next();
+      throw new Error("Not verified");
+    } catch (error) {
+      res.send(error.message);
+    }
+  }
+
+  authorizeAdmin(req, res, next) {
+    try {
+      if (checkUser(req.user.role, 1)) next();
+      throw new Error("Not authorized");
+    } catch (error) {
+      res.send(error.message);
+    }
+  }
+
+  authorizeStudent(req, res, next) {
+    try {
+      if (checkUser(req.user.role, 2)) next();
+      throw new Error("Not authorized");
+    } catch (error) {
+      res.send(error.message);
+    }
+  }
+
+  authorizeTeacher(req, res, next) {
+    try {
+      if (checkUser(req.user.role, 3)) next();
+      throw new Error("Not authorized");
+    } catch (error) {
+      res.send(error.message);
+    }
+  }
 }
 
-
-const isLoggedInInstance = new IsloggedIn();
-module.exports = isLoggedInInstance
-
-
-
-// //kia jo banda login access krnay ki koshshs kr raha ha uskay pas token nahi ha
-// module.exports = async (req,res,next)=>
-// {
-//     if(!req.cookies.token)
-//     {
-//         req.flash("Errro, you need to login first")
-//         return res.redirect("/")
-//     }
-// }
-
-// //agr token ha tou
-
-// try
-// {
-//   //token say vlaue nikalo
-//   let decoded = jwt.verify(req.cokies.token,process.env.JWT)
-// }
-
-// catch(err)
-// {
-    
-
-// }
+const auth = new Auth();
+module.exports = auth;

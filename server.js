@@ -12,7 +12,7 @@ const connectDB = require("./config/mongoose-connection");
 // Middleware for parsing JSON and URL-encoded data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use(cookieParser());
 // Set views directory
 app.set("views", path.join(__dirname, "views"));
 

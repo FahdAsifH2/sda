@@ -133,29 +133,71 @@ module.exports.loginUser = async (req, res) => {
     // Check if the user exists
     let user = await User.findOne({ email: email });
     if (!user) {
-      console.log("User does not exist");
       return res.status(400).send("User does not exist");
     }
 
     // Compare password with hashed password
     bcrypt.compare(password, user.password, (err, result) => {
-      console.log(result);
       if (result) {
         // Generate token using Singleton instance
-        const token = TokenGenerator.generateToken(user);
+        const token = TokenGenerator.generateToken(user._id);
 
         // Set the token in a cookie
         res.cookie("token", token, { httpOnly: true });
-
-        console.log("Login successful");
+        // TODO
+        switch (user.role) {
+          case 1:
+            console.log("admin");
+            //redirect to admin page
+            break;
+          case 2:
+            console.log("student");
+            //redirect to student page
+            break;
+          case 3:
+            console.log("teacher");
+            //redirect to teacher page
+            break;
+        }
         res.status(200).send("Login successful");
       } else {
-        console.log("Invalid password");
         res.status(400).send("Invalid password");
       }
     });
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
+  }
+};
+
+module.exports.verifyOtp = async (req, res) => {
+  try {
+    if (req.user.isVerified) throw new Error("User already verified. 🤨");
+    const otp = Number(req.body.otp);
+
+    const user = await User.findOne({
+      _id: req.user._id,
+      verificationCode: otp,
+      verificationCodeExpires: { $gt: Date.now() },
+    });
+
+    if (!user) {
+      throw new Error("Invalid or expired token. 😣");
+    }
+
+    user.isVerified = true;
+    user.verificationCode = undefined;
+    user.verificationCodeExpires = undefined;
+
+    await user.save();
+
+    res.status(200).send({
+      msg: {
+        title: "Email verified successfully! 🥳",
+        desc: "You can now start using the app.",
+      },
+    });
+  } catch (error) {
+    res.status(400).send({ msg: { title: error.message } });
   }
 };

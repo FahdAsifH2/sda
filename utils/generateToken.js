@@ -11,7 +11,7 @@ class TokenGenerator {
 
   generateToken(id) {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
-      expiresIn: "5m",
+      expiresIn: "1d",
     });
   }
 }
