@@ -1,70 +1,146 @@
-const User = require('../model/userModel');
+const Admin = require("../model/adminModel");
+const Teacher = require("../model/teacherModel");
+const User = require("../model/userModel");
+const Student = require("../model/studentModel");
 const bcrypt = require("bcrypt");
-const TokenGenerator = require("../utils/generateToken"); // Import the singleton instance
+const TokenGenerator = require("../utils/generateToken");
+const { roles } = require("../config/roles");
+const { generateVerificationToken, expiry } = require("../utils/generateOtp");
+const sendEmail = require("../utils/sendEmail");
+const { emailVerificationMessage } = require("../emails/verficationCode");
+const { default: mongoose } = require("mongoose");
 
-// Register User
-module.exports.registerUser = async (req, res) => {
-  try 
-  {
-    const { email, password, fullName } = req.body;
+const sendEmailNotification = async (to, subject, message) => {
+  try {
+    await sendEmail(to, subject, message);
+  } catch (error) {
+    res.status(500).send({ msg: { title: error.message } });
+  }
+};
 
-    console.log('Email:', email);
-    console.log('Password:', password);
-    console.log('Full Name:', fullName);
+const createUser = async (email, password) => {
+  let user = await User.findOne({ email: email });
+  if (user) {
+    throw new Error("User already exists");
+  }
 
-    // Check if the user already exists
-    let user = await User.findOne({ email: email });
-    if (user) {
-      console.log("User exists");
-      return res.status(400).send("User already exists");
-    }
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password, salt);
+  return hashedPassword;
+};
 
-    // Generate salt and hash the password
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+module.exports.registerStudent = async (req, res) => {
+  try {
+    const { email, password, name } = req.body;
+    const hashedPassword = await createUser(email, password);
 
-    // Create a new user with hashed password
-    user = await User.create({
-      email,
-      password: hashedPassword, // Use the hashed password
-      fullName,
+    const user = new User({
+      _id: new mongoose.Types.ObjectId().toString(),
+      name: name,
+      email: email,
+      password: hashedPassword,
+      verificationCode: generateVerificationToken(),
+      verificationCodeExpires: expiry(300),
+      role: roles.student,
     });
+    const student = new Student({
+      _id: new mongoose.Types.ObjectId().toString(),
+      userId: user._id,
+    });
+    await user.save();
+    await student.save();
+    const message = emailVerificationMessage(user);
+    // await sendEmailNotification(user.email, message.subject, message.body);
 
-    // Generate token using Singleton instance
-    const token = TokenGenerator.generateToken(user);
+    const token = TokenGenerator.generateToken(user._id);
 
     // Set the token in a cookie
     res.cookie("token", token, { httpOnly: true });
-
-    console.log("User created successfully");
     res.status(201).send("User created successfully");
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Server Error");
+    res.status(500).send(err.message);
+  }
+};
+
+module.exports.registerTeacher = async (req, res) => {
+  try {
+    const { email, password, name } = req.body;
+    const hashedPassword = await createUser(email, password);
+
+    const user = new User({
+      _id: new mongoose.Types.ObjectId().toString(),
+      name: name,
+      email: email,
+      password: hashedPassword,
+      verificationCode: generateVerificationToken(),
+      verificationCodeExpires: expiry(300),
+      role: roles.teacher,
+    });
+    const teacher = new Teacher({
+      _id: new mongoose.Types.ObjectId().toString(),
+      userId: user._id,
+    });
+    await user.save();
+    await teacher.save();
+    const message = emailVerificationMessage(user);
+    // await sendEmailNotification(user.email, message.subject, message.body);
+
+    const token = TokenGenerator.generateToken(user._id);
+
+    // Set the token in a cookie
+    res.cookie("token", token, { httpOnly: true });
+    res.status(201).send("User created successfully");
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+};
+
+module.exports.registerAdmin = async (req, res) => {
+  try {
+    const { email, password, name } = req.body;
+    const hashedPassword = await createUser(email, password);
+
+    const user = new User({
+      _id: new mongoose.Types.ObjectId().toString(),
+      name: name,
+      email: email,
+      password: hashedPassword,
+      role: roles.admin,
+      isVerified: true,
+    });
+    const admin = new Admin({
+      _id: new mongoose.Types.ObjectId().toString(),
+      userId: user._id,
+    });
+    await user.save();
+    await admin.save();
+    const token = TokenGenerator.generateToken(user._id);
+
+    // Set the token in a cookie
+    res.cookie("token", token, { httpOnly: true });
+    res.status(201).send("User created successfully");
+  } catch (err) {
+    res.status(500).send(err.message);
   }
 };
 
 // Login User
-module.exports.loginUser = async (req, res) =>
-{
+module.exports.loginUser = async (req, res) => {
   const { email, password } = req.body;
 
-  try 
-  {
+  try {
     // Check if the user exists
     let user = await User.findOne({ email: email });
-    if (!user) 
-    {
+    if (!user) {
       console.log("User does not exist");
       return res.status(400).send("User does not exist");
     }
 
     // Compare password with hashed password
-    bcrypt.compare(password, user.password, (err, result) => 
-    {
+    bcrypt.compare(password, user.password, (err, result) => {
       console.log(result);
-      if (result)
-       {
+      if (result) {
         // Generate token using Singleton instance
         const token = TokenGenerator.generateToken(user);
 
@@ -73,16 +149,12 @@ module.exports.loginUser = async (req, res) =>
 
         console.log("Login successful");
         res.status(200).send("Login successful");
-      }
-       else 
-      
-      {
+      } else {
         console.log("Invalid password");
         res.status(400).send("Invalid password");
       }
     });
-  } catch (err) 
-  {
+  } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
   }

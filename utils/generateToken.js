@@ -1,26 +1,20 @@
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
-
-
-// singleton design impl
-class TokenGenerator
-{
-  constructor()
-  {
-    if(!TokenGenerator.instance)
-    {
-        TokenGenerator.instance = this
+class TokenGenerator {
+  constructor() {
+    if (!TokenGenerator.instance) {
+      TokenGenerator.instance = this;
     }
 
-    return TokenGenerator.instance
+    return TokenGenerator.instance;
   }
 
-  generateToken(user)
-  {
-   return jwt.sign ( {email:user.email,id :user._id},process.env.JWT_SECRET,{expiresIn: "10s"} );
+  generateToken(id) {
+    return jwt.sign({ id }, process.env.JWT_SECRET, {
+      expiresIn: "5m",
+    });
   }
 }
 
-
-const instance = new TokenGenerator()
-module.exports= instance
+const instance = new TokenGenerator();
+module.exports = instance;

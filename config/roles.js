@@ -1,14 +1,7 @@
- const roles =
- {
-    "admin":1,
-    "std":2,
-    "tch":3
- }
+const roles = {
+  admin: 1,
+  student: 2,
+  teacher: 3,
+};
 
- module.exports = {roles}
-
-
-
-
-
- 
+module.exports = { roles };
