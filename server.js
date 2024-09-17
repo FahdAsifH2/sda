@@ -2,12 +2,14 @@ const express = require("express");
 const path = require("path");
 const app = express();
 const authRoutes = require("./routes/auth"); // Import the routes
+const studentRoutes = require("./routes/studentRoutes");
+const teacherRoutes = require("./routes/teacherRoutes");
+const adminRoutes = require("./routes/adminRoutes");
 const cookieParser = require("cookie-parser");
 require("dotenv").config();
 
 // Set EJS as the view engine
 app.set("view engine", "ejs");
-const db = require("./config/mongoose-connection");
 const connectDB = require("./config/mongoose-connection");
 // Middleware for parsing JSON and URL-encoded data
 app.use(express.json());
@@ -30,6 +32,9 @@ app.get("/index", (req, res) => {
 
 // Use the authRoutes router for all routes under the paths specified
 app.use("/", authRoutes);
+app.use("/student", studentRoutes);
+app.use("/teacher", teacherRoutes);
+app.use("/admin", adminRoutes);
 
 // Start the server
 const PORT = process.env.PORT || 3000;

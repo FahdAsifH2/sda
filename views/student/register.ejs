@@ -1,5 +1,4 @@
-<%- include("./partials/header") %>
-
+<%-include("../partials/header")%>
 <div
   class="untree_co-hero inner-page overlay"
   style="background-image: url('images/img-school-5-min.jpg')"
@@ -14,7 +13,7 @@
               data-aos="fade-up"
               data-aos-delay="100"
             >
-              Login
+              Register Student
             </h1>
           </div>
         </div>
@@ -34,37 +33,56 @@
         data-aos="fade-up"
         data-aos-delay="200"
       >
-        <!-- Updated form action and method -->
-        <form action="/login" method="POST" class="form-box">
+        <!-- Corrected form with the proper action and method -->
+        <form action="/register/student" method="post" class="form-box">
           <div class="row">
+            <div class="col-12 mb-3 text-center">
+              <h2 style="font-weight: bold">Enter your Info</h2>
+            </div>
+
             <div class="col-12 mb-3">
-              <div class="col-12 mb-3 text-center">
-                <h2 style="font-weight: bold">Enter login info</h2>
-              </div>
-              <!-- Added name attribute for email -->
+              <input
+                type="text"
+                class="form-control"
+                name="name"
+                placeholder="Name"
+                required
+              />
+            </div>
+
+            <div class="col-12 mb-3">
               <input
                 type="email"
-                name="email"
                 class="form-control"
+                name="email"
                 placeholder="Email"
                 required
               />
             </div>
+
             <div class="col-12 mb-3">
-              <!-- Added name attribute for password -->
               <input
                 type="password"
-                name="password"
                 class="form-control"
-                minlength="4"
+                name="password"
                 placeholder="Password"
                 required
               />
             </div>
 
-            <div class="col-12">
-              <!-- Updated submit button label -->
-              <input type="submit" value="Login" class="btn btn-primary" />
+            <div class="col-12 mb-3">
+              <input
+                type="password"
+                class="form-control"
+                name="retypePassword"
+                placeholder="Re-type Password"
+                required
+              />
+            </div>
+
+            <!-- Corrected: Button element to submit the form -->
+            <div class="col-12 text-center">
+              <button type="submit" class="btn btn-primary">Submit</button>
             </div>
           </div>
         </form>
@@ -72,5 +90,6 @@
     </div>
   </div>
 </div>
+<!-- /.untree_co-section -->
 
-<%- include("./partials/footer") %>
+<%-include("../partials/footer")%>

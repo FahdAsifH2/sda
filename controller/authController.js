@@ -29,6 +29,20 @@ const createUser = async (email, password) => {
   return hashedPassword;
 };
 
+const homeNavigator = (res, role) => {
+  switch (role) {
+    case 1:
+      //redirect to admin page
+      return res.redirect("/admin/home");
+    case 2:
+      //redirect to student page
+      return res.redirect("/student/home");
+    case 3:
+      //redirect to teacher page
+      return res.redirect("/teacher/home");
+  }
+};
+
 module.exports.registerStudent = async (req, res) => {
   try {
     const { email, password, name } = req.body;
@@ -56,7 +70,7 @@ module.exports.registerStudent = async (req, res) => {
 
     // Set the token in a cookie
     res.cookie("token", token, { httpOnly: true });
-    res.status(201).send("User created successfully");
+    res.render("verify");
   } catch (err) {
     console.error(err.message);
     res.status(500).send(err.message);
@@ -90,7 +104,7 @@ module.exports.registerTeacher = async (req, res) => {
 
     // Set the token in a cookie
     res.cookie("token", token, { httpOnly: true });
-    res.status(201).send("User created successfully");
+    res.render("verify");
   } catch (err) {
     res.status(500).send(err.message);
   }
@@ -145,21 +159,7 @@ module.exports.loginUser = async (req, res) => {
         // Set the token in a cookie
         res.cookie("token", token, { httpOnly: true });
         // TODO
-        switch (user.role) {
-          case 1:
-            console.log("admin");
-            //redirect to admin page
-            break;
-          case 2:
-            console.log("student");
-            //redirect to student page
-            break;
-          case 3:
-            console.log("teacher");
-            //redirect to teacher page
-            break;
-        }
-        res.status(200).send("Login successful");
+        homeNavigator(res, user.role);
       } else {
         res.status(400).send("Invalid password");
       }
@@ -173,8 +173,10 @@ module.exports.loginUser = async (req, res) => {
 module.exports.verifyOtp = async (req, res) => {
   try {
     if (req.user.isVerified) throw new Error("User already verified. 🤨");
-    const otp = Number(req.body.otp);
+    const { otp1, otp2, otp3, otp4, otp5, otp6 } = req.body;
 
+    // Concatenate them into a single OTP string
+    const otp = Number(`${otp1}${otp2}${otp3}${otp4}${otp5}${otp6}`);
     const user = await User.findOne({
       _id: req.user._id,
       verificationCode: otp,
@@ -182,7 +184,7 @@ module.exports.verifyOtp = async (req, res) => {
     });
 
     if (!user) {
-      throw new Error("Invalid or expired token. 😣");
+      throw new Error("Invalid or expired code. 😣");
     }
 
     user.isVerified = true;
@@ -190,14 +192,9 @@ module.exports.verifyOtp = async (req, res) => {
     user.verificationCodeExpires = undefined;
 
     await user.save();
-
-    res.status(200).send({
-      msg: {
-        title: "Email verified successfully! 🥳",
-        desc: "You can now start using the app.",
-      },
-    });
+    homeNavigator(res, user.role);
   } catch (error) {
-    res.status(400).send({ msg: { title: error.message } });
+    console.log(error.message);
+    res.redirect("/login");
   }
 };

@@ -11,22 +11,12 @@ const {
   registerAdmin,
   verifyOtp,
 } = require("../controller/authController");
-const isLoggedInInstance = require("../middlewares/isLoggedin");
+const auth = require("../middlewares/isLoggedin");
 const { isValidObjectId } = require("mongoose");
 
 // Define specific routes for each page
 router.get("/about", (req, res) => {
   res.render("about");
-});
-
-// Define specific routes for each page
-router.get("/admin", (req, res) => {
-  res.render("admin");
-});
-
-router.get("/register", (req, res) => {
-  console.log("register get");
-  res.render("register");
 });
 
 router.get("/contact", (req, res) => {
@@ -63,15 +53,26 @@ router.post("/register/teacher", registerTeacher);
 
 router.post("/register/admin", registerAdmin);
 
+router.get("/register/student", (req, res) => {
+  res.render("student/register");
+});
+
+router.get("/register/teacher", (req, res) => {
+  res.render("teacher/register");
+});
+
 router.post("/login", loginUser);
 
-router.post("/verify", isLoggedInInstance.authenticate, verifyOtp);
+router.get("/verify", auth.authenticate, (req, res) => {
+  res.render("verify");
+});
+router.post("/verify", auth.authenticate, verifyOtp);
 
 router.get(
   "/protect",
-  isLoggedInInstance.authenticate,
-  isLoggedInInstance.verified,
-  isLoggedInInstance.authorizeStudent,
+  auth.authenticate,
+  auth.verified,
+  auth.authorizeStudent,
   (req, res) => res.send("You are logged in")
 );
 

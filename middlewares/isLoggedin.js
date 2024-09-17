@@ -16,7 +16,7 @@ class Auth {
   async authenticate(req, res, next) {
     const token = req.cookies?.token;
     if (!token) {
-      res.send("No token");
+      res.redirect("/login");
     }
     try {
       const secret = process.env.JWT_SECRET;
@@ -31,7 +31,8 @@ class Auth {
       };
       next();
     } catch (err) {
-      res.send(err.message);
+      console.log(err.message);
+      res.redirect("/login");
     }
   }
 
@@ -40,7 +41,8 @@ class Auth {
       if (req.user?.isVerified) next();
       throw new Error("Not verified");
     } catch (error) {
-      res.send(error.message);
+      console.log(error.message);
+      res.redirect("/verify");
     }
   }
 
@@ -49,7 +51,8 @@ class Auth {
       if (checkUser(req.user.role, 1)) next();
       throw new Error("Not authorized");
     } catch (error) {
-      res.send(error.message);
+      console.log(error.message);
+      res.redirect("login");
     }
   }
 
@@ -58,7 +61,8 @@ class Auth {
       if (checkUser(req.user.role, 2)) next();
       throw new Error("Not authorized");
     } catch (error) {
-      res.send(error.message);
+      console.log(error.message);
+      res.redirect("login");
     }
   }
 
@@ -67,7 +71,8 @@ class Auth {
       if (checkUser(req.user.role, 3)) next();
       throw new Error("Not authorized");
     } catch (error) {
-      res.send(error.message);
+      console.log(error.message);
+      res.redirect("login");
     }
   }
 }
