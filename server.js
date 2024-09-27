@@ -22,11 +22,13 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 
 // Define a route for the root path
-app.get("/", (req, res) => {
+app.get("/", (req, res) => 
+{
   res.render("index"); // Ensure you have an index.ejs file
 });
 
-app.get("/index", (req, res) => {
+app.get("/index", (req, res) => 
+{
   res.render("index"); // Ensure you have an index.ejs file
 });
 

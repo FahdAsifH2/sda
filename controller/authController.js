@@ -77,7 +77,10 @@ module.exports.registerStudent = async (req, res) => {
   }
 };
 
-module.exports.registerTeacher = async (req, res) => {
+module.exports.registerTeacher = async (req, res) =>
+ {
+  
+   console.log("You just entered registerTeacher route")
   try {
     const { email, password, name } = req.body;
     const hashedPassword = await createUser(email, password);
@@ -91,6 +94,7 @@ module.exports.registerTeacher = async (req, res) => {
       verificationCodeExpires: expiry(300),
       role: roles.teacher,
     });
+
     const teacher = new Teacher({
       _id: new mongoose.Types.ObjectId().toString(),
       userId: user._id,
@@ -109,6 +113,7 @@ module.exports.registerTeacher = async (req, res) => {
     res.status(500).send(err.message);
   }
 };
+
 
 module.exports.registerAdmin = async (req, res) => {
   try {
@@ -198,3 +203,51 @@ module.exports.verifyOtp = async (req, res) => {
     res.redirect("/login");
   }
 };
+
+
+
+// Register User
+module.exports.registerUser = async (req, res) => {
+
+  console.log("We enter the login page ni")
+  try 
+  {
+    const { email, password, fullName } = req.body;
+
+    console.log('Email:', email);
+    console.log('Password:', password);
+    console.log('Full Name:', fullName);
+
+    // Check if the user already exists
+    let user = await User.findOne({ email: email });
+    if (user) {
+      console.log("User exists");
+      return res.status(400).send("User already exists");
+    }
+
+    // Generate salt and hash the password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    // Create a new user with hashed password
+    user = await User.create({
+      email,
+      password: hashedPassword, // Use the hashed password
+      fullName,
+    });
+
+    // Generate token using Singleton instance
+    const token = TokenGenerator.generateToken(user);
+
+    // Set the token in a cookie
+    res.cookie("token", token, { httpOnly: true });
+
+    console.log("User created successfully");
+    res.status(201).send("User created successfully");
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+};
+
+

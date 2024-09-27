@@ -3,8 +3,10 @@ const router = express.Router();
 const User = require("../model/userModel");
 const bcrypt = require("bcrypt");
 const { generateToken } = require("../utils/generateToken");
+const {registerUser}= require("../controller/authController")
 
-const {
+const 
+{
   loginUser,
   registerStudent,
   registerTeacher,
@@ -15,15 +17,32 @@ const auth = require("../middlewares/isLoggedin");
 const { isValidObjectId } = require("mongoose");
 
 // Define specific routes for each page
-router.get("/about", (req, res) => {
+router.get("/about", (req, res) => 
+{
   res.render("about");
 });
 
-router.get("/contact", (req, res) => {
+
+
+router.get('/register', (req,res) =>
+{
+    console.log("register get")
+    res.render('register');
+});
+
+
+  
+// yaha focus krna
+  router.post("/registerUser", registerUser)
+   
+
+router.get("/contact", (req, res) => 
+{
   res.render("contact");
 });
 
-router.get("/elements", (req, res) => {
+router.get("/elements", (req, res) => 
+{
   res.render("elements");
 });
 
@@ -51,24 +70,35 @@ router.post("/register/student", registerStudent);
 
 router.post("/register/teacher", registerTeacher);
 
+
+
+
+router.get("/teacher/register", registerTeacher);
+
 router.post("/register/admin", registerAdmin);
 
-router.get("/register/student", (req, res) => {
+router.get("/register/student", (req, res) => 
+{
   res.render("student/register");
 });
 
-router.get("/register/teacher", (req, res) => {
+router.get("/register/teacher", (req, res) => 
+{
   res.render("teacher/register");
 });
 
 router.post("/login", loginUser);
 
-router.get("/verify", auth.authenticate, (req, res) => {
+
+
+router.get("/verify", auth.authenticate, (req, res) => 
+{
   res.render("verify");
 });
 router.post("/verify", auth.authenticate, verifyOtp);
 
-router.get(
+router.get
+(
   "/protect",
   auth.authenticate,
   auth.verified,

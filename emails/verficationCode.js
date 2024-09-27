@@ -1,4 +1,5 @@
-const emailVerificationMessage = (user) => {
+const emailVerificationMessage = (user) => 
+{
   const message = {
     subject: "Verify Your Email with Examchamp",
     body: `

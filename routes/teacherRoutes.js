@@ -5,4 +5,7 @@ router.get("/home", (req, res) => {
   res.render("teacher/home");
 });
 
+
+
+
 module.exports = router;

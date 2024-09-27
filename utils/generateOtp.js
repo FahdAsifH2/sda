@@ -8,7 +8,8 @@ const expiry = (time) => {
   return new Date(Date.now() + time * 1000);
 };
 
-module.exports = {
+module.exports = 
+{
   generateVerificationToken,
   expiry,
 };
