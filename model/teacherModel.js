@@ -1,74 +1,40 @@
 const mongoose = require("mongoose");
 
-
-const subjects = 
-{
-  sciences: ['Physics', 'Chemistry', 'Mathematics', 'Biology', 'Agriculture', 'Engineering'],
-  humanities: ['History', 'Geography', 'Psychology', 'Economics', 'Sociology', 'Anthropology', 'Political Science'],
-  commerce: ['Accounting', 'Business', 'Economics', 'Mathematics']
-}
-
-
 const teacherSchema = new mongoose.Schema(
   {
-    userId: 
-    {
+    userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
-    tests: 
-    [
+    tests: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Test",
       },
     ],
-
-   
-    subjects:
-    {
-      sciences: 
-      {
-        type: [String],
-      enum : subjects.sciences,
-      },
-
-      humanities:
-      {
-        type: [String],
-      enum : subjects.humanities,
-      },
-       
-      commerce:
-      {
-        type: [String],
-      enum : subjects.commerce,
-      },
-        
+    subjects: {
+      type: [String], // Correctly defined as an array of strings
+      required: true, // Ensures this field must be provided
     },
-
-    DateOfBirth :
-    {
+    DateOfBirth: {
       type: Date,
-      required: true,
+      required: true, // Ensures this field must be provided
     },
-
-    phone:
-    {
+    phone: {
       type: String,
-      requred: true,
+      required: true, // Ensures this field must be provided
     },
-    Name:
-    {
+    name: {
       type: String,
-      requred: true,
+      required: true, // Ensures this field must be provided
     },
-  
-
+    stream: {
+      type: String,
+      required: true, // Ensures this field must be provided
+    },
   },
-  
-
-  { timestamps: true }
+  { timestamps: true } // Automatically manage createdAt and updatedAt fields
 );
+
 module.exports = mongoose.model("Teacher", teacherSchema);

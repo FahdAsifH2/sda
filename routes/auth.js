@@ -68,12 +68,15 @@ router.get("/staff", (req, res) => {
 
 router.post("/register/student", registerStudent);
 
+
+
+
 router.post("/register/teacher", registerTeacher);
 
 
 
 
-router.get("/teacher/register", registerTeacher);
+//router.post("/teacher/register", registerTeacher);
 
 router.post("/register/admin", registerAdmin);
 
@@ -86,6 +89,12 @@ router.get("/register/teacher", (req, res) =>
 {
   res.render("teacher/register");
 });
+
+
+
+
+router.post("/register/teacher", registerTeacher);
+
 
 router.post("/login", loginUser);
 

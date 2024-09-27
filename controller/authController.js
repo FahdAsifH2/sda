@@ -10,10 +10,16 @@ const sendEmail = require("../utils/sendEmail");
 const { emailVerificationMessage } = require("../emails/verficationCode");
 const { default: mongoose } = require("mongoose");
 
-const sendEmailNotification = async (to, subject, message) => {
-  try {
+
+
+
+const sendEmailNotification = async (to, subject, message) => 
+{
+  try 
+  {
     await sendEmail(to, subject, message);
-  } catch (error) {
+  } catch (error) 
+  {
     res.status(500).send({ msg: { title: error.message } });
   }
 };
@@ -43,8 +49,10 @@ const homeNavigator = (res, role) => {
   }
 };
 
-module.exports.registerStudent = async (req, res) => {
-  try {
+module.exports.registerStudent = async (req, res) => 
+{
+  try 
+  {
     const { email, password, name } = req.body;
     const hashedPassword = await createUser(email, password);
 
@@ -57,7 +65,8 @@ module.exports.registerStudent = async (req, res) => {
       verificationCodeExpires: expiry(300),
       role: roles.student,
     });
-    const student = new Student({
+    const student = new Student(
+      {
       _id: new mongoose.Types.ObjectId().toString(),
       userId: user._id,
     });
@@ -77,42 +86,6 @@ module.exports.registerStudent = async (req, res) => {
   }
 };
 
-module.exports.registerTeacher = async (req, res) =>
- {
-  
-   console.log("You just entered registerTeacher route")
-  try {
-    const { email, password, name } = req.body;
-    const hashedPassword = await createUser(email, password);
-
-    const user = new User({
-      _id: new mongoose.Types.ObjectId().toString(),
-      name: name,
-      email: email,
-      password: hashedPassword,
-      verificationCode: generateVerificationToken(),
-      verificationCodeExpires: expiry(300),
-      role: roles.teacher,
-    });
-
-    const teacher = new Teacher({
-      _id: new mongoose.Types.ObjectId().toString(),
-      userId: user._id,
-    });
-    await user.save();
-    await teacher.save();
-    const message = emailVerificationMessage(user);
-    // await sendEmailNotification(user.email, message.subject, message.body);
-
-    const token = TokenGenerator.generateToken(user._id);
-
-    // Set the token in a cookie
-    res.cookie("token", token, { httpOnly: true });
-    res.render("verify");
-  } catch (err) {
-    res.status(500).send(err.message);
-  }
-};
 
 
 module.exports.registerAdmin = async (req, res) => {
@@ -205,11 +178,63 @@ module.exports.verifyOtp = async (req, res) => {
 };
 
 
+module.exports.registerTeacher = async (req, res) =>
+ {
+  
+   console.log("You just entered registerTeacher route")
+  try {
+    const { email, password, name, dob, phone, stream ,subjects } = req.body;
+    const hashedPassword = await createUser(email, password);
+    console.log("Subjects from request body:", subjects); // Log the received subjects
+
+   // Log other individual fields
+   console.log("Name:", name);
+   console.log("Date of Birth:", dob);
+   console.log("Phone:", phone);
+   console.log("Stream:", stream);
+
+    const user = new User({
+      _id: new mongoose.Types.ObjectId().toString(),
+      name: name,
+      email: email,
+      password: hashedPassword,
+      verificationCode: generateVerificationToken(),
+      verificationCodeExpires: expiry(300),
+      role: roles.teacher,
+    });
+
+
+    const teacher = new Teacher({
+      _id: new mongoose.Types.ObjectId().toString(),
+      userId: user._id,
+      DateOfBirth: dob,
+      phone: phone,
+      name: name,
+      email: email,
+      stream:stream,
+      subjects: subjects // Set the selected subjects
+
+    });
+    
+    await user.save();
+    await teacher.save();
+    const message = emailVerificationMessage(user);
+    // await sendEmailNotification(user.email, message.subject, message.body);
+
+    const token = TokenGenerator.generateToken(user._id);
+
+    // Set the token in a cookie
+    res.cookie("token", token, { httpOnly: true });
+    res.render("verify");
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+};
 
 // Register User
 module.exports.registerUser = async (req, res) => {
 
-  console.log("We enter the login page ni")
+  console.log("We enter the registerUser")
   try 
   {
     const { email, password, fullName } = req.body;
