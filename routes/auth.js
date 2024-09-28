@@ -3,7 +3,7 @@ const router = express.Router();
 const User = require("../model/userModel");
 const bcrypt = require("bcrypt");
 const { generateToken } = require("../utils/generateToken");
-const {registerUser}= require("../controller/authController")
+const {registerUser}= require("../controller/authController");
 
 const 
 {
@@ -50,6 +50,18 @@ router.get("/gallery", (req, res) => {
   res.render("gallery");
 });
 
+
+//when press stdRegsiter than rander this
+router.get("/stdRegister",(req,res)=>
+{
+  res.render("registerStudent")
+})
+
+router.get("/mcq", (req, res) => 
+{
+  res.render("mcq");
+});
+
 router.get("/login", (req, res) => {
   res.render("login");
 });
@@ -66,9 +78,11 @@ router.get("/staff", (req, res) => {
   res.render("staff");
 });
 
-router.post("/register/student", registerStudent);
-
-
+//
+router.post("/register/student", registerStudent)
+{
+  console.log("function worked")
+}
 
 
 router.post("/register/teacher", registerTeacher);

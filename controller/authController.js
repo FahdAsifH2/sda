@@ -53,6 +53,8 @@ module.exports.registerStudent = async (req, res) =>
 {
   try 
   {
+
+    console.log("You just entered student")
     const { email, password, name } = req.body;
     const hashedPassword = await createUser(email, password);
 
@@ -120,7 +122,7 @@ module.exports.registerAdmin = async (req, res) => {
 // Login User
 module.exports.loginUser = async (req, res) => {
   const { email, password } = req.body;
-
+ console.log("You Entered user block")
   try {
     // Check if the user exists
     let user = await User.findOne({ email: email });
@@ -180,7 +182,7 @@ module.exports.verifyOtp = async (req, res) => {
 
 module.exports.registerTeacher = async (req, res) =>
  {
-  
+ 
    console.log("You just entered registerTeacher route")
   try {
     const { email, password, name, dob, phone, stream ,subjects } = req.body;
@@ -229,6 +231,9 @@ module.exports.registerTeacher = async (req, res) =>
   } catch (err) {
     res.status(500).send(err.message);
   }
+
+ 
+
 };
 
 // Register User

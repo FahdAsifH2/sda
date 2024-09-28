@@ -1,0 +1,77 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examchamp</title>
+    <link rel="stylesheet" href="/css/mcqStyle.css">
+</head>
+<body>
+    
+   
+    <!-- Header -->
+    <header class="header">
+        <div class="contact-info">
+            <p>Mobile: +91 9876543210 | Email: saaad@example.com</p>
+        </div>
+        <div class="exam-header">
+            <h1>Examchamp</h1>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Left side: Question and options -->
+        <div class="left-panel">
+            <h2 id="question-number">Question 1:</h2>
+            <p id="question-text">The characteristic distance at which quantum gravitational effects are significant, the Planck length, can be determined from a suitable combination of the fundamental physical constants G, h, and c. Which of the following correctly gives the Planck length?</p>
+            <form id="question-form">
+                <div>
+                    <input type="radio" id="option1" name="answer" value="option1">
+                    <label for="option1">(1) G * h<sup>2</sup> * c<sup>3</sup></label>
+                </div>
+                <div>
+                    <input type="radio" id="option2" name="answer" value="option2">
+                    <label for="option2">(2) G<sup>2</sup> * h * c</label>
+                </div>
+            </form>
+
+            <div class="buttons">
+                <button class="green-btn" onclick="saveNext()">Save & Next</button>
+                <button class="blue-btn" onclick="saveMarkReview()">Save & Mark for Review</button>
+                <button onclick="clearResponse()">Clear Response</button>
+                <button class="blue-btn" onclick="markReviewNext()">Mark for Review & Next</button>
+                <br>
+                <button onclick="prevQuestion()"><< Back</button>
+                <button onclick="nextQuestion()">Next >></button>
+                <button class="submit-btn">Submit</button>
+            </div>
+        </div>
+
+        <!-- Right side: Question navigation and info -->
+        <div class="right-panel">
+            <div class="info">
+                <p>Candidate Name: <strong>John Doe</strong></p>
+                <p>Roll Number: <strong>123456</strong></p>
+                <div class="timer">
+                    Time Remaining: <span id="timer">02:59:59</span>
+                </div>
+            </div>
+            <div class="status-legend">
+                <div><span class="legend-box not-visited"></span> Not Visited</div>
+                <div><span class="legend-box not-answered"></span> Not Answered</div>
+                <div><span class="legend-box answered"></span> Answered</div>
+                <div><span class="legend-box marked-review"></span> Marked for Review</div>
+                <div><span class="legend-box answered-marked-review"></span> Answered & Marked for Review</div>
+            </div>
+
+            <div class="question-grid">
+                <!-- Dynamically generate question grid here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/mcqScript.js"></script>
+</body>
+</html>
