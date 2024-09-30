@@ -55,9 +55,9 @@ module.exports.registerStudent = async (req, res) =>
   {
 
     console.log("You just entered student")
-    const { email, password,mothername,fathername,collageName, name, dob, phone, stream ,test } = req.body;
+    const {email, password,mothername,fathername,collageName, name, dob, phone, stream ,test} = req.body;
 
-   
+
    console.log("Name:", name);
    console.log("Date of Birth:", dob);
    console.log("Phone:", phone);
@@ -83,6 +83,15 @@ module.exports.registerStudent = async (req, res) =>
       {
       _id: new mongoose.Types.ObjectId().toString(),
       userId: user._id,
+      name,
+      email,
+      mothername,
+      fathername,
+      collageName,
+      phone,
+      stream,
+      dob,
+      test
     });
     await user.save();
     await student.save();
@@ -102,7 +111,8 @@ module.exports.registerStudent = async (req, res) =>
 
 
 
-module.exports.registerAdmin = async (req, res) => {
+module.exports.registerAdmin = async (req, res) => 
+{
   try {
     const { email, password, name } = req.body;
     const hashedPassword = await createUser(email, password);
