@@ -55,7 +55,19 @@ module.exports.registerStudent = async (req, res) =>
   {
 
     console.log("You just entered student")
-    const { email, password, name } = req.body;
+    const { email, password,mothername,fathername,collageName, name, dob, phone, stream ,test } = req.body;
+
+   
+   console.log("Name:", name);
+   console.log("Date of Birth:", dob);
+   console.log("Phone:", phone);
+   console.log("Stream:", stream)
+   console.log("momName:", mothername);
+   console.log("dadName:", fathername);
+   console.log("email", email);
+   console.log("collage:", collageName);
+   console.log("test:", test)
+
     const hashedPassword = await createUser(email, password);
 
     const user = new User({
