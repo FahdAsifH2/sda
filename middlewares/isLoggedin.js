@@ -7,7 +7,8 @@ const checkUser = (userRole, specifiedRole) => {
   return false;
 };
 
-class Auth {
+class Auth 
+{
   secret;
   constructor() 
   {

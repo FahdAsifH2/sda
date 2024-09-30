@@ -113,11 +113,13 @@ router.post("/register/teacher", registerTeacher);
 router.post("/login", loginUser);
 
 
-
 router.get("/verify", auth.authenticate, (req, res) => 
 {
   res.render("verify");
 });
+
+
+
 router.post("/verify", auth.authenticate, verifyOtp);
 
 router.get

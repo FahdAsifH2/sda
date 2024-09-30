@@ -1,15 +1,22 @@
-<%-include("./partials/header")%>
-<div class="otp-container"></div>
-    <h2>Enter OTP</h2>
-    <form action="/verify" method="POST">
-        <input type="text" name="otp1" maxlength="1" class="otp-input" required>
-        <input type="text" name="otp2" maxlength="1" class="otp-input" required>
-        <input type="text" name="otp3" maxlength="1" class="otp-input" required>
-        <input type="text" name="otp4" maxlength="1" class="otp-input" required>
-        <input type="text" name="otp5" maxlength="1" class="otp-input" required>
-        <input type="text" name="otp6" maxlength="1" class="otp-input" required>
-        <br><br>
-        <button type="submit">Verify</button>
-    </form>
-</div>
-<%-include("./partials/footer")%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP Verification</title>
+    <link rel="stylesheet" href="/css/otp.css"> <!-- Link to the CSS file -->
+</head>
+<body>
+    <div class="otp-container">
+        <h2>Enter OTP PLEASE</h2>
+        <form action="/verify" method="POST">
+            <input type="text" name="otp1" maxlength="1" class="otp-input" required>
+            <input type="text" name="otp2" maxlength="1" class="otp-input" required>
+            <input type="text" name="otp3" maxlength="1" class="otp-input" required>
+            <input type="text" name="otp4" maxlength="1" class="otp-input" required>
+            <br><br>
+            <button type="submit">Verify</button>
+        </form>
+    </div>
+</body>
+</html>
