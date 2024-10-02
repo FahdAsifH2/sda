@@ -13,16 +13,30 @@ const { default: mongoose } = require("mongoose");
 
 
 
-const sendEmailNotification = async (to, subject, message) => 
-{
-  try 
-  {
+// const sendEmailNotification = async (to, subject, message) => 
+// {
+//   try 
+//   {
+//     await sendEmail(to, subject, message);
+//   } catch (error) 
+//   {
+//     res.status(500).send({ msg: { title: error.message } });
+//   }
+// };
+
+
+const sendEmailNotification = async (to, subject, message) => {
+  try {
     await sendEmail(to, subject, message);
   } catch (error) 
   {
-    res.status(500).send({ msg: { title: error.message } });
+    // Log the error or handle it as needed
+    console.error("Error sending email notification:", error.message);
+    // You might want to throw the error to handle it later
+    throw new Error("Failed to send email notification.");
   }
 };
+
 
 const createUser = async (email, password) => {
   let user = await User.findOne({ email: email });
@@ -178,7 +192,7 @@ module.exports.verifyOtp = async (req, res) => {
     const { otp1, otp2, otp3, otp4, otp5, otp6 } = req.body;
 
     // Concatenate them into a single OTP string
-    const otp = Number(`${otp1}${otp2}${otp3}${otp4}${otp5}${otp6}`);
+    const otp = Number(`${otp1}${otp2}${otp3}${otp4}`);
     const user = await User.findOne({
       _id: req.user._id,
       verificationCode: otp,
@@ -201,62 +215,56 @@ module.exports.verifyOtp = async (req, res) => {
   }
 };
 
-
-module.exports.registerTeacher = async (req, res) =>
- {
- 
-   console.log("You just entered registerTeacher route")
+module.exports.registerTeacher = async (req, res) => {
+  console.log("You just entered registerTeacher route");
   try {
-    const { email, password, name, dob, phone, stream ,subjects } = req.body;
+    const { email, password, name, dob, phone, stream, subjects } = req.body;
     const hashedPassword = await createUser(email, password);
-    console.log("Subjects from request body:", subjects); // Log the received subjects
-
-   // Log other individual fields
-   console.log("Name:", name);
-   console.log("Date of Birth:", dob);
-   console.log("Phone:", phone);
-   console.log("Stream:", stream);
+    
+    console.log("Subjects from request body:", subjects);
+    console.log("Name:", name);
+    console.log("Date of Birth:", dob);
+    console.log("Phone:", phone);
+    console.log("Stream:", stream);
 
     const user = new User({
       _id: new mongoose.Types.ObjectId().toString(),
-      name: name,
-      email: email,
+      name,
+      email,
       password: hashedPassword,
       verificationCode: generateVerificationToken(),
       verificationCodeExpires: expiry(300),
       role: roles.teacher,
     });
 
-
     const teacher = new Teacher({
       _id: new mongoose.Types.ObjectId().toString(),
       userId: user._id,
       DateOfBirth: dob,
-      phone: phone,
-      name: name,
-      email: email,
-      stream:stream,
-      subjects: subjects // Set the selected subjects
-
+      phone,
+      name,
+      email,
+      stream,
+      subjects, // Set the selected subjects
     });
-    
+
     await user.save();
     await teacher.save();
     const message = emailVerificationMessage(user);
-    // await sendEmailNotification(user.email, message.subject, message.body);
+    await sendEmailNotification(user.email, message.subject, message.body);
 
+    console.log("after OTP");
     const token = TokenGenerator.generateToken(user._id);
 
     // Set the token in a cookie
     res.cookie("token", token, { httpOnly: true });
     res.render("verify");
   } catch (err) {
+    console.error(err.message);
     res.status(500).send(err.message);
   }
-
- 
-
 };
+
 
 // Register User
 module.exports.registerUser = async (req, res) => {
