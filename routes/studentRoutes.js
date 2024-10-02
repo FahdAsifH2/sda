@@ -1,9 +1,11 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const auth = require("../middlewares/isLoggedin");
 
-router.get("/home", auth.authenticate, auth.verified, (req, res) => {
-  res.render("student/home");
+// Route for student registration
+router.get('/register', (req, res) => {
+    res.render('student/register'); // Ensure this points to the correct view
 });
+
+// Add more student-related routes here...
 
 module.exports = router;

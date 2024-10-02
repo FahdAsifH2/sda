@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Question = require('../model/testModel');
+const Question = require('../model/testModel'); // Make sure this points to the correct model
 
 // Route to render the teacher dashboard
 router.get('/home', (req, res) => {
@@ -50,6 +50,20 @@ router.get('/confirmation', async (req, res) => {
     } catch (error) {
         console.error('Error loading confirmation page:', error);
         res.status(500).send('Error loading confirmation page');
+    }
+});
+
+// Route to render the preview questions page
+router.get('/previewQuestions', async (req, res) => {
+    try {
+        // Fetch all questions from the database (filter based on teacherId later)
+        const questions = await Question.find({}); // You can filter by teacherId if necessary
+
+        // Render the previewQuestions.ejs with the fetched questions
+        res.render('teacher/previewQuestions', { questions });
+    } catch (error) {
+        console.error('Error loading preview questions:', error);
+        res.status(500).send('Error loading preview questions');
     }
 });
 
