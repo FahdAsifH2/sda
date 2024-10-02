@@ -1,0 +1,147 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1e90ff; /* Blue background */
+    color: white;
+}
+
+.header {
+    background-color: #1e90ff;
+    padding: 10px;
+    text-align: center;
+    color: white;
+}
+
+.contact-info {
+    font-size: 14px;
+}
+
+.exam-header {
+    background-color: #1e90ff;
+    color: white;
+    font-size: 24px;
+}
+
+.container {
+    margin-top: 125px; /* Corrected the property */
+    display: flex;
+    justify-content: space-between;
+    padding: 20px; /* Added semicolon */
+}
+
+
+
+.left-panel {
+    width: 60%;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    color: black;
+}
+
+.right-panel {
+    width: 35%;
+    text-align: center;
+}
+
+.info {
+    margin-bottom: 20px;
+    background-color: #ffb74d;
+    padding: 15px;
+    border-radius: 10px;
+    color: black;
+}
+
+.timer {
+    margin-top: 10px;
+    font-size: 18px;
+    color: red;
+}
+
+.status-legend {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.legend-box {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    border: 1px solid #ccc;
+}
+
+.not-visited {
+    background-color: #ddd; /* Gray */
+}
+
+.not-answered {
+    background-color: orange; /* Orange */
+}
+
+.answered {
+    background-color: red; /* Red */
+}
+
+.marked-review {
+    background-color: purple; /* Purple */
+}
+
+.answered-marked-review {
+    background-color: green; /* Green */
+}
+
+.question-grid {
+    display: grid;
+    grid-template-columns: repeat(9, 20px); /* Smaller grid size */
+    gap: 5px;
+    margin-bottom: 20px;
+}
+
+.question-grid div {
+    width: 20px; /* Set width for smaller grid */
+    height: 20px; /* Set height for smaller grid */
+    line-height: 20px;
+    background-color: #ffffff; /* Set background color to white */
+    color: black; /* Set text color to black */
+    text-align: center;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    font-size: 10px; /* Smaller text inside the grid */
+}
+
+/* Adjusted buttons */
+.buttons {
+    margin-top: 20px;
+}
+
+.buttons button {
+    padding: 5px 10px; /* Smaller padding for buttons */
+    font-size: 14px; /* Smaller font size */
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+.green-btn {
+    background-color: green;
+    color: white;
+}
+
+.blue-btn {
+    background-color: blue; /* Changed to blue */
+    color: white; /* Change text color for contrast */
+}
+
+.submit-btn {
+    background-color: green;
+    color: white;
+    padding: 5px 10px; /* Smaller padding for submit button */
+    font-size: 14px; /* Smaller font size for submit button */
+    margin-top: 20px; /* Increased gap from previous buttons */
+}

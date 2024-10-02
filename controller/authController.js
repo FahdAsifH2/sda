@@ -10,13 +10,33 @@ const sendEmail = require("../utils/sendEmail");
 const { emailVerificationMessage } = require("../emails/verficationCode");
 const { default: mongoose } = require("mongoose");
 
+
+
+
+// const sendEmailNotification = async (to, subject, message) => 
+// {
+//   try 
+//   {
+//     await sendEmail(to, subject, message);
+//   } catch (error) 
+//   {
+//     res.status(500).send({ msg: { title: error.message } });
+//   }
+// };
+
+
 const sendEmailNotification = async (to, subject, message) => {
   try {
     await sendEmail(to, subject, message);
-  } catch (error) {
-    res.status(500).send({ msg: { title: error.message } });
+  } catch (error) 
+  {
+    // Log the error or handle it as needed
+    console.error("Error sending email notification:", error.message);
+    // You might want to throw the error to handle it later
+    throw new Error("Failed to send email notification.");
   }
 };
+
 
 const createUser = async (email, password) => {
   let user = await User.findOne({ email: email });
@@ -43,9 +63,25 @@ const homeNavigator = (res, role) => {
   }
 };
 
-module.exports.registerStudent = async (req, res) => {
-  try {
-    const { email, password, name } = req.body;
+module.exports.registerStudent = async (req, res) => 
+{
+  try 
+  {
+
+    console.log("You just entered student")
+    const {email, password,mothername,fathername,collageName, name, dob, phone, stream ,test} = req.body;
+
+
+   console.log("Name:", name);
+   console.log("Date of Birth:", dob);
+   console.log("Phone:", phone);
+   console.log("Stream:", stream)
+   console.log("momName:", mothername);
+   console.log("dadName:", fathername);
+   console.log("email", email);
+   console.log("collage:", collageName);
+   console.log("test:", test)
+
     const hashedPassword = await createUser(email, password);
 
     const user = new User({
@@ -57,9 +93,19 @@ module.exports.registerStudent = async (req, res) => {
       verificationCodeExpires: expiry(300),
       role: roles.student,
     });
-    const student = new Student({
+    const student = new Student(
+      {
       _id: new mongoose.Types.ObjectId().toString(),
       userId: user._id,
+      name,
+      email,
+      mothername,
+      fathername,
+      collageName,
+      phone,
+      stream,
+      dob,
+      test
     });
     await user.save();
     await student.save();
@@ -77,40 +123,10 @@ module.exports.registerStudent = async (req, res) => {
   }
 };
 
-module.exports.registerTeacher = async (req, res) => {
-  try {
-    const { email, password, name } = req.body;
-    const hashedPassword = await createUser(email, password);
 
-    const user = new User({
-      _id: new mongoose.Types.ObjectId().toString(),
-      name: name,
-      email: email,
-      password: hashedPassword,
-      verificationCode: generateVerificationToken(),
-      verificationCodeExpires: expiry(300),
-      role: roles.teacher,
-    });
-    const teacher = new Teacher({
-      _id: new mongoose.Types.ObjectId().toString(),
-      userId: user._id,
-    });
-    await user.save();
-    await teacher.save();
-    const message = emailVerificationMessage(user);
-    // await sendEmailNotification(user.email, message.subject, message.body);
 
-    const token = TokenGenerator.generateToken(user._id);
-
-    // Set the token in a cookie
-    res.cookie("token", token, { httpOnly: true });
-    res.render("verify");
-  } catch (err) {
-    res.status(500).send(err.message);
-  }
-};
-
-module.exports.registerAdmin = async (req, res) => {
+module.exports.registerAdmin = async (req, res) => 
+{
   try {
     const { email, password, name } = req.body;
     const hashedPassword = await createUser(email, password);
@@ -142,7 +158,7 @@ module.exports.registerAdmin = async (req, res) => {
 // Login User
 module.exports.loginUser = async (req, res) => {
   const { email, password } = req.body;
-
+ console.log("You Entered user block")
   try {
     // Check if the user exists
     let user = await User.findOne({ email: email });
@@ -176,7 +192,7 @@ module.exports.verifyOtp = async (req, res) => {
     const { otp1, otp2, otp3, otp4, otp5, otp6 } = req.body;
 
     // Concatenate them into a single OTP string
-    const otp = Number(`${otp1}${otp2}${otp3}${otp4}${otp5}${otp6}`);
+    const otp = Number(`${otp1}${otp2}${otp3}${otp4}`);
     const user = await User.findOne({
       _id: req.user._id,
       verificationCode: otp,
@@ -198,3 +214,100 @@ module.exports.verifyOtp = async (req, res) => {
     res.redirect("/login");
   }
 };
+
+module.exports.registerTeacher = async (req, res) => {
+  console.log("You just entered registerTeacher route");
+  try {
+    const { email, password, name, dob, phone, stream, subjects } = req.body;
+    const hashedPassword = await createUser(email, password);
+    
+    console.log("Subjects from request body:", subjects);
+    console.log("Name:", name);
+    console.log("Date of Birth:", dob);
+    console.log("Phone:", phone);
+    console.log("Stream:", stream);
+
+    const user = new User({
+      _id: new mongoose.Types.ObjectId().toString(),
+      name,
+      email,
+      password: hashedPassword,
+      verificationCode: generateVerificationToken(),
+      verificationCodeExpires: expiry(300),
+      role: roles.teacher,
+    });
+
+    const teacher = new Teacher({
+      _id: new mongoose.Types.ObjectId().toString(),
+      userId: user._id,
+      DateOfBirth: dob,
+      phone,
+      name,
+      email,
+      stream,
+      subjects, // Set the selected subjects
+    });
+
+    await user.save();
+    await teacher.save();
+    const message = emailVerificationMessage(user);
+    await sendEmailNotification(user.email, message.subject, message.body);
+
+    console.log("after OTP");
+    const token = TokenGenerator.generateToken(user._id);
+
+    // Set the token in a cookie
+    res.cookie("token", token, { httpOnly: true });
+    res.render("verify");
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send(err.message);
+  }
+};
+
+
+// Register User
+module.exports.registerUser = async (req, res) => {
+
+  console.log("We enter the registerUser")
+  try 
+  {
+    const { email, password, fullName } = req.body;
+
+    console.log('Email:', email);
+    console.log('Password:', password);
+    console.log('Full Name:', fullName);
+
+    // Check if the user already exists
+    let user = await User.findOne({ email: email });
+    if (user) {
+      console.log("User exists");
+      return res.status(400).send("User already exists");
+    }
+
+    // Generate salt and hash the password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    // Create a new user with hashed password
+    user = await User.create({
+      email,
+      password: hashedPassword, // Use the hashed password
+      fullName,
+    });
+
+    // Generate token using Singleton instance
+    const token = TokenGenerator.generateToken(user);
+
+    // Set the token in a cookie
+    res.cookie("token", token, { httpOnly: true });
+
+    console.log("User created successfully");
+    res.status(201).send("User created successfully");
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+};
+
+

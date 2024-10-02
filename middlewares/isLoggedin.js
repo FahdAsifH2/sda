@@ -7,9 +7,11 @@ const checkUser = (userRole, specifiedRole) => {
   return false;
 };
 
-class Auth {
+class Auth 
+{
   secret;
-  constructor() {
+  constructor() 
+  {
     this.secret = process.env.JWT_SECRET;
   }
 

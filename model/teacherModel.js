@@ -13,7 +13,28 @@ const teacherSchema = new mongoose.Schema(
         ref: "Test",
       },
     ],
+    subjects: {
+      type: [String], // Correctly defined as an array of strings
+      required: true, // Ensures this field must be provided
+    },
+    DateOfBirth: {
+      type: Date,
+      required: true, // Ensures this field must be provided
+    },
+    phone: {
+      type: String,
+      required: true, // Ensures this field must be provided
+    },
+    name: {
+      type: String,
+      required: true, // Ensures this field must be provided
+    },
+    stream: {
+      type: String,
+      required: true, // Ensures this field must be provided
+    },
   },
-  { timestamps: true }
+  { timestamps: true } // Automatically manage createdAt and updatedAt fields
 );
+
 module.exports = mongoose.model("Teacher", teacherSchema);

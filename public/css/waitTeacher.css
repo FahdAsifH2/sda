@@ -1,0 +1,206 @@
+/* General Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f0f2f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    color: #333;
+  }
+  
+  /* Panel Container */
+  .panel {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    overflow: hidden;
+  }
+  
+  /* Panel Header */
+  .panel-header {
+    background-color: #2980b9;
+    padding: 20px;
+    text-align: center;
+    color: white;
+  }
+  
+  .panel-header h1 {
+    margin: 0;
+    font-size: 1.8em;
+    font-weight: 700;
+  }
+  
+  /* Panel Content */
+  .panel-content {
+    padding: 30px 20px;
+    text-align: center;
+  }
+  
+  /* Status Card */
+  .status-card {
+    background-color: #f9f9f9;
+    border: 1px solid #eaeaea;
+    border-radius: 8px;
+    padding: 20px;
+  }
+  
+  .status-card h2 {
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+  
+  .status-card p {
+    margin-bottom: 20px;
+    color: #666;
+  }
+  
+  /* Status Badge */
+  .status-badge {
+    background-color: #ffc107;
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: 500;
+    display: inline-block;
+    margin-bottom: 20px;
+  }
+  
+  /* Buttons */
+  .action-buttons {
+    margin-top: 20px;
+  }
+  
+
+  /* Buttons Container */
+.action-buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Adds gap between buttons */
+  }
+  
+  /* General Button Styles */
+  .action-buttons button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white;
+    background: linear-gradient(145deg, #2980b9, #3498db); /* Glossy gradient */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Soft shadow */
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Glossy Effect (Inner Shine) */
+  .action-buttons button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.3); /* Shiny layer */
+    transform: rotate(45deg);
+    transform-origin: 0 0;
+    pointer-events: none;
+    opacity: 0.6;
+    border-radius: 8px;
+  }
+  
+  /* Glass Effect - Background */
+  .action-buttons button {
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+  }
+  
+  /* Hover Effect */
+  .action-buttons button:hover {
+    background: linear-gradient(145deg, #1f76c6, #2980b9); /* Darker glossy gradient on hover */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* Stronger shadow */
+  }
+  
+  /* Update Button */
+  .update-btn {
+    background: linear-gradient(145deg, #2980b9, #3498db); /* Same base colors */
+  }
+  
+  /* Logout Button */
+  .logout-btn {
+    background: linear-gradient(145deg, #2980b9, #3498db); /* Same base colors */
+  }
+
+  
+
+
+
+
+
+  /* Buttons Container */
+.action-buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Adds gap between buttons */
+  }
+  
+  /* General Button Styles */
+  .action-buttons button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white; /* Text color */
+    background: linear-gradient(145deg, #2980b9, #3498db); /* Glossy gradient */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Soft shadow */
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Glossy Effect (Inner Shine) */
+  .action-buttons button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.3); /* Shiny layer */
+    transform: rotate(45deg);
+    transform-origin: 0 0;
+    pointer-events: none;
+    opacity: 0.6;
+    border-radius: 8px;
+  }
+  
+  /* Glass Effect - Background */
+  .action-buttons button {
+    backdrop-filter: blur(10px);
+    background: rgba(0, 0, 0, 0.4); /* Change to a darker color for better contrast */
+    border: 1px solid rgba(255, 255, 255, 0.4); /* Add border for distinction */
+  }
+  
+  /* Hover Effect */
+  .action-buttons button:hover {
+    background: linear-gradient(145deg, #1f76c6, #2980b9); /* Darker glossy gradient on hover */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* Stronger shadow */
+  }
+  
+  /* Update Button */
+  .update-btn {
+    background: linear-gradient(145deg, #2980b9, #3498db); /* Same base colors */
+  }
+  
+  /* Logout Button */
+  .logout-btn {
+    background: linear-gradient(145deg, #2980b9, #3498db); /* Same base colors */
+  }
+  

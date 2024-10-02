@@ -1,0 +1,83 @@
+body {
+    font-family: 'Arial', sans-serif; /* Modern font */
+    background-color: #f8f9fa; /* Light background for contrast */
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+}
+
+.otp-container {
+    background-color: white; /* White background for the form */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    padding: 40px; /* Padding for internal spacing */
+    width: 300px; /* Fixed width for the form */
+    text-align: center; /* Center text */
+}
+
+h2 {
+    color: #343a40; /* Dark text for the heading */
+    margin-bottom: 20px; /* Spacing below the heading */
+}
+
+.otp-input {
+    width: 40px; /* Fixed width for input fields */
+    height: 40px; /* Height for uniformity */
+    font-size: 24px; /* Font size for visibility */
+    text-align: center; /* Center text within input */
+    border: 1px solid #ced4da; /* Light border color */
+    border-radius: 8px; /* Rounded corners for input */
+    margin: 0 5px; /* Spacing between inputs */
+    transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transitions */
+}
+
+.otp-input:focus {
+    border-color: #007bff; /* Highlight border on focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Light blue glow effect */
+    outline: none; /* Remove default outline */
+}
+
+button {
+    background-color: #007bff; /* Primary button color */
+    color: white; /* Button text color */
+    border: none; /* Remove border */
+    padding: 10px 20px; /* Padding for button */
+    border-radius: 8px; /* Rounded corners for button */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 16px; /* Font size for button */
+    transition: background-color 0.3s, transform 0.2s; /* Transition effects */
+}
+
+button:hover {
+    background-color: #0056b3; /* Darker button color on hover */
+    transform: scale(1.05); /* Slight scaling effect on hover */
+}
+
+button:active {
+    transform: scale(0.98); /* Slight scale down on click */
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+    .otp-container {
+        width: 90%; /* Full width on small screens */
+        padding: 20px; /* Less padding */
+    }
+
+    h2 {
+        font-size: 20px; /* Smaller font size on small screens */
+    }
+
+    .otp-input {
+        width: 30px; /* Smaller width for inputs on small screens */
+        height: 30px; /* Smaller height for inputs on small screens */
+        font-size: 20px; /* Smaller font size for inputs */
+    }
+
+    button {
+        padding: 8px 16px; /* Less padding on small screens */
+        font-size: 14px; /* Smaller font size for button */
+    }
+}
