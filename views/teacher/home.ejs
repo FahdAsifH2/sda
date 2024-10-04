@@ -1,3 +1,49 @@
-<%-include("../partials/header")%>
-<h1>Teacher</h1>
-<%-include("../partials/footer")%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/teacherDashboard.css">
+</head>
+<body>
+    <!-- Container for the entire dashboard -->
+    <div class="dashboard-container">
+        <!-- Header with Logout button -->
+        <header>
+            <h1>Teacher Dashboard</h1>
+            <a href="/index" class="logout-button">Logout</a>
+        </header>
+        
+        <!-- Button grid layout -->
+        <div class="button-grid">
+            <a href="/teacher/questionForm" class="dashboard-button">
+                <img src="/assets/upload.png  " alt="Upload">
+                <span>Upload Questions</span>
+            </a>
+            <a href="/teacher/previewQuestions" class="dashboard-button">
+                <img src="/assets/preview.png" alt="Preview">
+                <span>Preview Questions</span>
+            </a>
+            <a href="/teacher/chat" class="dashboard-button">
+                <img src="/assets/bubble-chat.png " alt="Chat">
+                <span>Chat with Students</span>
+            </a>
+            <a href="/teacher/calendar" class="dashboard-button">
+                <img src="/assets/calendar.png" alt="Calendar">
+                <span>Calendar</span>
+            </a>
+            <a href="/teacher/editProfile" class="dashboard-button">
+                <img src="/assets/edit.png" alt="Edit Profile">
+                <span>Edit Profile</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Teacher Dashboard. All rights reserved.</p>
+    </footer>
+</body>
+</html>
