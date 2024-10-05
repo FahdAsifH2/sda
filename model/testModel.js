@@ -1,17 +1,47 @@
 const mongoose = require('mongoose');
 
-const questionSchema = new mongoose.Schema({
-    question: { type: String, required: true },
+// const questionSchema = new mongoose.Schema({
+//     question: { type: String, required: true },
+//     options: [
+//         {
+//             text: { type: String, required: true }
+//         }
+//     ],
+//     correctOption: { type: String, required: true, enum: ['A', 'B', 'C', 'D'] }
+// });
+
+// const testSchema = new mongoose.Schema({
+//     testName: { type: String, required: true },
+//     questions: [questionSchema]
+// });
+
+// // Create and export the model
+// const Test = mongoose.model('Test', testSchema);
+// module.exports = Test;
+
+
+
+
+
+
+const TestSchema = new mongoose.Schema({
+    question: { type: String, required: true },  // The main question text
     options: [
         {
-            option: { type: String, enum: ['A', 'B', 'C', 'D'], required: true },
-            text: { type: String, required: true }
+            option: { type: String, enum: ['A', 'B', 'C', 'D'], required: true },  // Option identifier (A, B, C, or D)
+            text: { type: String, required: true }  // Option text (e.g., "Paris")
         }
     ],
-    correctOption: { type: String, enum: ['A', 'B', 'C', 'D'], required: true },
-    teacherId: { type: mongoose.Schema.Types.ObjectId, ref: 'Teacher', required: false }
+    correctOption: { type: String, enum: ['A', 'B', 'C', 'D'], required: true },  // Correct answer identifier
+    testName: { type: String, required: true }  // Name of the test/paper
 });
 
-const Question = mongoose.model('Question', questionSchema);
+// Create the Question model
+const Test = mongoose.model('Test', TestSchema);
 
-module.exports = Question;
+module.exports = Test;
+
+
+
+
+

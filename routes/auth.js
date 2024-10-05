@@ -5,6 +5,7 @@ const bcrypt = require("bcrypt");
 const { generateToken } = require("../utils/generateToken");
 const {registerUser}= require("../controller/authController");
 
+
 const 
 {
   loginUser,

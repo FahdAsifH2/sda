@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("path");
+const bodyParser = require('body-parser');
 const app = express();
 const authRoutes = require("./routes/auth"); // Import the routes
 const studentRoutes = require("./routes/studentRoutes");
@@ -17,6 +18,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 // Set views directory
 app.set("views", path.join(__dirname, "views"));
+app.use(bodyParser.urlencoded({ extended: true })); // For parsing application/x-www-form-urlencoded
+app.use(bodyParser.json()); // For parsing application/json
 
 // Serve static files from the "public" directory
 app.use(express.static(path.join(__dirname, "public")));

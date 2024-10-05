@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Question = require('../model/testModel'); // Make sure this points to the correct model
+const Test = require('../model/testModel'); // Make sure this points to the correct model
 
 // Route to render the teacher dashboard
 router.get('/home', (req, res) => {
@@ -13,11 +13,17 @@ router.get('/questionForm', (req, res) => {
 });
 
 // Route to handle question form submission
+// Route to handle question form submission
+
+// Route to handle question form submission
 router.post('/submit-question', async (req, res) => {
     try {
-        const { question, optionA, optionB, optionC, optionD, correctOption } = req.body;
+        const {testName, question, optionA, optionB, optionC, optionD, correctOption } = req.body;
 
-        const newQuestion = new Question({
+         console.log(req.body)
+
+        const newQuestion = new Test({
+            testName:testName,
             question: question,
             options: [
                 { option: 'A', text: optionA },
@@ -25,6 +31,7 @@ router.post('/submit-question', async (req, res) => {
                 { option: 'C', text: optionC },
                 { option: 'D', text: optionD }
             ],
+            testName:testName,
             correctOption: correctOption,
             teacherId: null // Temporarily set to null (no authentication for now)
         });
@@ -40,33 +47,34 @@ router.post('/submit-question', async (req, res) => {
     }
 });
 
+
+
 // Route for confirmation page
 router.get('/confirmation', async (req, res) => {
     try {
         const questionId = req.query.questionId;
-        const question = await Question.findById(questionId);
+        const test = await Test.findById(questionId);
 
-        res.render('teacher/confirmation', { question });
+        res.render('teacher/confirmation', { test });
     } catch (error) {
         console.error('Error loading confirmation page:', error);
         res.status(500).send('Error loading confirmation page');
     }
 });
 
-// Route to render the preview questions page
+
 router.get('/previewQuestions', async (req, res) => {
     try {
-        // Fetch all questions from the database (filter based on teacherId later)
-        const questions = await Question.find({}); // You can filter by teacherId if necessary
+        // Fetch all test documents from the database
+        const tests = await Test.find({}); // You can filter by teacherId if necessary
 
-        // Render the previewQuestions.ejs with the fetched questions
-        res.render('teacher/previewQuestions', { questions });
+        // Render the previewQuestions.ejs with the collected questions
+        res.render('teacher/previewQuestions', { questions: tests });
     } catch (error) {
         console.error('Error loading preview questions:', error);
         res.status(500).send('Error loading preview questions');
     }
 });
-
 
 
 

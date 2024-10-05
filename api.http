@@ -1,4 +1,4 @@
-@url=http://localhost:4000
+@url=http://localhost:3000
 
 @token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZTk2MTg0MzU2NGQ5ZjkwY2EyZWQwNyIsImlhdCI6MTcyNjU3MDg4NCwiZXhwIjoxNzI2NjU3Mjg0fQ.NFbg8oUAjHwDN0R6WsRI_OycuFYaPt-BS4Kj6OmJb6Q;
 
@@ -54,3 +54,45 @@ Content-Type: application/json
 ### ? PROTECT
 GET {{url}}/protect HTTP/1.1
 Cookie: token={{token}}
+
+###
+POST {{url}}/teacher/submit-question HTTP/1.1
+Content-Type: application/json
+
+
+{
+    "testName": "Science Quiz",
+    "questions": [
+        {
+            "question": "What is the chemical symbol for water?",
+            "options": [
+                { "text": "H2O" },
+                { "text": "O2" },
+                { "text": "CO2" },
+                { "text": "NaCl" }
+            ],
+            "correctOption": "A"
+        },
+        {
+            "question": "What planet is known as the Red Planet?",
+            "options": [
+                { "text": "Earth" },
+                { "text": "Mars" },
+                { "text": "Jupiter" },
+                { "text": "Saturn" }
+            ],
+            "correctOption": "B"
+        },
+        {
+            "question": "What gas do plants absorb from the atmosphere?",
+            "options": [
+                { "text": "Oxygen" },
+                { "text": "Carbon Dioxide" },
+                { "text": "Nitrogen" },
+                { "text": "Hydrogen" }
+            ],
+            "correctOption": "B"
+        }
+    ]
+}
+

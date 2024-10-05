@@ -8,18 +8,37 @@
 </head>
 <body>
     <div class="container">
+       
+
+ 
         <h1>Preview Questions</h1>
-        <% questions.forEach((question, index) => { %>
-            <div class="question-card">
-                <h2>Question <%= index + 1 %>: <%= question.question %></h2>
-                <ul>
-                    <% question.options.forEach(option => { %>
-                        <li><strong><%= option.option %>:</strong> <%= option.text %></li>
-                    <% }) %>
-                </ul>
-                <p><strong>Correct Option:</strong> <%= question.correctOption %></p>
-            </div>
-        <% }) %>
+        <% if (questions && Array.isArray(questions) && questions.length > 0) { %>
+            <% questions.forEach((question, index) => { %>
+                <div class="question-card">
+                    <h2>Test Name: <%= question.testName %></h2> <!-- Display the test name -->
+                    <h2>Question <%= index + 1 %>: <%= question.question %></h2>
+                    <ul>
+                        <% if (question.options && Array.isArray(question.options)) { %>
+                            <% question.options.forEach((option, optionIndex) => { %>
+                                <li>
+                                    <strong>Option <%= option.option %>:</strong> <%= option.text %>
+                                </li>
+                            <% }) %>
+                        <% } else { %>
+                            <li>No options available</li>
+                        <% } %>
+                    </ul>
+                    <p><strong>Correct Option:</strong> <%= question.correctOption %></p>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <p>No questions found.</p>
+        <% } %>
+        
+
+
+
+
     </div>
 </body>
 </html>
