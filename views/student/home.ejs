@@ -1,3 +1,43 @@
-<%- include("../partials/header") %>
-<h1>Welcome Student</h1>
-<%- include("../partials/footer") %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/teacherDashboard.css">
+</head>
+<body>
+    <!-- Container for the entire dashboard -->
+    <div class="dashboard-container">
+        <!-- Header with Logout button -->
+        <header>
+            <h1>Student Dashboard</h1>
+            <a href="/index" class="logout-button">Logout</a>
+        </header>
+        
+        <!-- Button grid layout -->
+        <div class="button-grid">
+            <a href="/student/solveExam" class="dashboard-button">
+                <img src="/assets/upload.png  " alt="Upload">
+                <span>Solve Exams</span>
+            </a>
+            <a href="/student/browseExams" class="dashboard-button">
+                <img src="/assets/preview.png" alt="Preview">
+                <span>Browse Exams</span>
+            </a>
+          
+           
+            <a href="/student/editProfile" class="dashboard-button">
+                <img src="/assets/editProfile.png" alt="Edit Profile">
+                <span>Edit Profile</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Student Dashboard. All rights reserved.</p>
+    </footer>
+</body>
+</html>
