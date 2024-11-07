@@ -17,6 +17,13 @@ router.get('/questionForm', (req, res) =>
 // Route to handle question form submission
 // Route to handle question form submission
 
+
+  router.get("/editProfilePage",async (req,res)=>
+  {
+    const tests = await Test.find({})
+    res.render("editProfile")
+  })
+
 // Route to handle question form submission
 router.post('/submit-question', async (req,res) => 
 {
