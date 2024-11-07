@@ -58,10 +58,11 @@ router.get("/stdRegister",(req,res)=>
   res.render("registerStudent")
 })
 
-router.get("/mcq", (req, res) => 
-{
-  res.render("mcq");
-});
+// router.get("/mcq", (req, res) => 
+// {
+//   console.log("Hello")
+//   res.render("mcq");
+// });
 
 router.get("/login", (req, res) => {
   res.render("login");

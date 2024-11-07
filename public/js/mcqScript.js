@@ -5,7 +5,8 @@ let currentQuestion = 0; // Track the current question number
 const questionGrid = document.querySelector('.question-grid');
 
 // Render the question grid based on the 2D array
-function renderGrid() {
+function renderGrid() 
+{
     questionGrid.innerHTML = '';  // Clear current grid
     questions.forEach((row, rowIndex) => {
         row.forEach((status, colIndex) => {
@@ -31,15 +32,20 @@ function getClassForStatus(status) {
 }
 
 // Handle click on question box
-function handleQuestionClick(row, col) {
+function handleQuestionClick(row, col) 
+{
+    console.log("handle question ")
     currentQuestion = row * 10 + col;
     document.querySelector('#question-number').textContent = `Question ${currentQuestion + 1}`;
     // Update question text (for now, just a placeholder)
     document.querySelector('#question-text').textContent = `This is the text for question ${currentQuestion + 1}.`;
+
+    
 }
 
 // Button Actions
-function saveNext() {
+function saveNext() 
+{
     updateQuestionStatus('Answered');
     if (currentQuestion < 89) {
         nextQuestion();
@@ -68,20 +74,6 @@ function updateQuestionStatus(status) {
     renderGrid(); // Update the grid after changing status
 }
 
-// Navigation functions
-function nextQuestion() {
-    if (currentQuestion < 89) {
-        currentQuestion++;
-        handleQuestionClick(Math.floor(currentQuestion / 10), currentQuestion % 10);
-    }
-}
-
-function prevQuestion() {
-    if (currentQuestion > 0) {
-        currentQuestion--;
-        handleQuestionClick(Math.floor(currentQuestion / 10), currentQuestion % 10);
-    }
-}
 
 // Timer function
 function startTimer(duration, display) {

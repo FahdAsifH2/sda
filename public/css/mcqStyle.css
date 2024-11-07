@@ -1,3 +1,4 @@
+/* Reset and basic settings */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -6,63 +7,76 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #1e90ff; /* Blue background */
-    color: white;
+    background-color: #121212; /* Dark background for dark mode */
+    color: #f1f1f1; /* Light text color for contrast */
+    transition: background-color 0.3s, color 0.3s;
 }
 
+/* Header */
 .header {
-    background-color: #1e90ff;
-    padding: 10px;
+    background-color: #1e90ff; /* Blue header */
+    padding: 15px;
     text-align: center;
     color: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 .contact-info {
     font-size: 14px;
+    color: #a1a1a1;
 }
 
 .exam-header {
-    background-color: #1e90ff;
+    font-size: 26px;
     color: white;
-    font-size: 24px;
 }
 
+/* Main Container */
 .container {
-    margin-top: 125px; /* Corrected the property */
     display: flex;
     justify-content: space-between;
-    padding: 20px; /* Added semicolon */
+    padding: 20px;
+    margin-top: 100px;
 }
 
-
-
+/* Left Panel - Card Style */
 .left-panel {
     width: 60%;
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    color: black;
+    background-color: #1e1e1e;
+    padding: 25px;
+    border-radius: 12px;
+    color: #f1f1f1;
+    box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.4);
 }
 
+/* Right Panel */
 .right-panel {
     width: 35%;
     text-align: center;
+    background-color: #1e1e1e;
+    padding: 20px;
+    border-radius: 12px;
+    color: #f1f1f1;
+    box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.4);
 }
 
+/* Candidate Info Card */
 .info {
     margin-bottom: 20px;
-    background-color: #ffb74d;
-    padding: 15px;
-    border-radius: 10px;
-    color: black;
+    background-color: #2c2c2c;
+    padding: 20px;
+    border-radius: 8px;
+    color: #f1f1f1;
 }
 
+/* Timer */
 .timer {
     margin-top: 10px;
     font-size: 18px;
-    color: red;
+    color: #ff6347;
 }
 
+/* Status Legend */
 .status-legend {
     display: flex;
     justify-content: space-around;
@@ -74,74 +88,207 @@ body {
     width: 20px;
     height: 20px;
     margin-right: 5px;
-    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #ddd;
 }
 
+/* Different status colors */
 .not-visited {
-    background-color: #ddd; /* Gray */
+    background-color: #555; /* Dark gray */
 }
 
 .not-answered {
-    background-color: orange; /* Orange */
+    background-color: #e67e22; /* Orange */
 }
 
 .answered {
-    background-color: red; /* Red */
+    background-color: #ff6347; /* Red */
 }
 
 .marked-review {
-    background-color: purple; /* Purple */
+    background-color: #6a0dad; /* Purple */
 }
 
 .answered-marked-review {
-    background-color: green; /* Green */
+    background-color: #32cd32; /* Green */
 }
 
+/* Question Grid */
 .question-grid {
     display: grid;
-    grid-template-columns: repeat(9, 20px); /* Smaller grid size */
-    gap: 5px;
+    grid-template-columns: repeat(9, 24px); /* Smaller grid with more space */
+    gap: 6px;
     margin-bottom: 20px;
 }
 
-.question-grid div {
-    width: 20px; /* Set width for smaller grid */
-    height: 20px; /* Set height for smaller grid */
-    line-height: 20px;
-    background-color: #ffffff; /* Set background color to white */
-    color: black; /* Set text color to black */
+.grid-button {
+    background-color: #333;
+    color: #f1f1f1;
     text-align: center;
-    border: 1px solid #ccc;
+    font-size: 12px;
+    border: 1px solid #555;
+    border-radius: 6px;
     cursor: pointer;
-    font-size: 10px; /* Smaller text inside the grid */
+    transition: background-color 0.3s, transform 0.2s;
 }
 
-/* Adjusted buttons */
+.grid-button:hover {
+    background-color: #4a4a4a;
+    transform: scale(1.1);
+}
+
+/* Buttons */
 .buttons {
     margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .buttons button {
-    padding: 5px 10px; /* Smaller padding for buttons */
-    font-size: 14px; /* Smaller font size */
-    margin-right: 5px;
-    margin-bottom: 5px;
+    padding: 8px 14px;
+    font-size: 14px;
+    border: none;
+    border-radius: 6px;
+    color: #f1f1f1;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
 .green-btn {
-    background-color: green;
-    color: white;
+    background-color: #28a745;
 }
 
 .blue-btn {
-    background-color: blue; /* Changed to blue */
-    color: white; /* Change text color for contrast */
+    background-color: #007bff;
 }
 
 .submit-btn {
-    background-color: green;
-    color: white;
-    padding: 5px 10px; /* Smaller padding for submit button */
-    font-size: 14px; /* Smaller font size for submit button */
-    margin-top: 20px; /* Increased gap from previous buttons */
+    background-color: #6a0dad;
+    padding: 8px 14px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Dark mode transitions for buttons */
+.buttons button:hover {
+    transform: scale(1.05);
+}
+
+.green-btn:hover {
+    background-color: #218838;
+}
+
+.blue-btn:hover {
+    background-color: #0056b3;
+}
+
+.submit-btn:hover {
+    background-color: #5b0b91;
+}
+
+/* Styling for the question number and text to be on the same line */
+#question-number {
+    display: inline-block;
+    font-weight: bold;
+    margin-right: 10px; /* Space between number and question */
+}
+
+#question-text {
+    display: inline-block;
+    font-weight: normal;
+}
+
+/* Buttons */
+.buttons {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.buttons button {
+    padding: 8px 14px;
+    font-size: 14px;
+    border: none;
+    border-radius: 6px;
+    color: #f1f1f1;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    background-color: #555; /* Default background color */
+}
+
+.green-btn {
+    background-color: #28a745;
+}
+
+.blue-btn {
+    background-color: #007bff;
+}
+
+.submit-btn {
+    background-color: #6a0dad;
+    padding: 8px 14px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Clear Response & Next/Back Buttons */
+.buttons button.clear-btn,
+.buttons button.next-btn,
+.buttons button.prev-btn {
+    background-color: #333; /* Dark button background */
+    color: #f1f1f1; /* Light text color for visibility */
+    border: 1px solid #555;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+/* Hover effects for buttons */
+.buttons button:hover {
+    transform: scale(1.05);
+}
+
+.green-btn:hover {
+    background-color: #218838;
+}
+
+.blue-btn:hover {
+    background-color: #0056b3;
+}
+
+.submit-btn:hover {
+    background-color: #5b0b91;
+}
+
+.clear-btn:hover,
+.next-btn:hover,
+.prev-btn:hover {
+    background-color: #444; /* Lighter gray on hover */
+}
+
+/* Clear Response Button */
+.clear-btn {
+    background-color: #f44336; /* Red background for clear */
+}
+
+.clear-btn:hover {
+    background-color: #e53935; /* Darker red on hover */
+}
+
+/* Next Button */
+.next-btn {
+    background-color: #2196f3; /* Blue for next */
+}
+
+.next-btn:hover {
+    background-color: #1976d2; /* Darker blue on hover */
+}
+
+/* Previous Button */
+.prev-btn {
+    background-color: #fbc02d; /* Yellow for previous */
+}
+
+.prev-btn:hover {
+    background-color: #f57f17; /* Darker yellow on hover */
 }
