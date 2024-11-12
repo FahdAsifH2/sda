@@ -1,94 +1,100 @@
+/* Resetting default styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f7fb;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  body {
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     height: 100vh;
-}
-
-.container {
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(to right, #1e3a8a, #6366f1);
+  }
+  
+  /* Edit Profile Container */
+  .edit-profile-container {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+    padding: 24px;
     width: 100%;
-    max-width: 500px;
-    transition: all 0.3s ease-in-out;
-}
-
-h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: #333;
+    max-width: 400px;
+  }
+  
+  /* Header */
+  h2 {
     text-align: center;
-    letter-spacing: 0.5px;
-}
-
-.form-group {
-    margin-bottom: 15px;
-}
-
-label {
-    font-size: 14px;
-    font-weight: 600;
-    color: #666;
+    margin-bottom: 24px;
+    font-size: 1.5rem;
+    color: #1e3a8a;
+  }
+  
+  /* Form Group Styling */
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  label {
     display: block;
-    margin-bottom: 5px;
-}
-
-input, textarea {
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #4b5563;
+  }
+  
+  /* Input Styling */
+  input[type="password"],
+  input[type="text"] {
     width: 100%;
     padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
+    border: 1.5px solid #d1d5db;
+    border-radius: 8px;
     font-size: 14px;
-    transition: border 0.3s ease, box-shadow 0.3s ease;
-}
-
-input:focus, textarea:focus {
-    border: 1px solid #4CAF50;
-    box-shadow: 0 0 10px rgba(72, 184, 72, 0.3);
-}
-
-textarea {
-    resize: vertical;
-}
-
-.form-actions {
-    display: flex;
-    justify-content: space-between;
-}
-
-.submit-btn, .reset-btn {
-    padding: 10px 20px;
+    background: #f9fafb;
+    color: #111827;
+    transition: border-color 0.3s ease;
+  }
+  
+  input:focus {
+    border-color: #6366f1;
+    outline: none;
+  }
+  
+  /* Button Styling */
+  button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
     border: none;
-    border-radius: 6px;
-    font-size: 14px;
+    font-size: 1rem;
+    font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-}
-
-.submit-btn {
-    background-color: #4CAF50;
-    color: white;
-}
-
-.submit-btn:hover {
-    background-color: #45a049;
-}
-
-.reset-btn {
-    background-color: #f44336;
-    color: white;
-}
-
-.reset-btn:hover {
-    background-color: #e53935;
-}
+  }
+  
+  .save-btn {
+    background: #6366f1;
+    color: #ffffff;
+    margin-bottom: 12px;
+  }
+  
+  .save-btn:hover {
+    background: #4f46e5;
+  }
+  
+  .cancel-btn {
+    background: #e5e7eb;
+    color: #1f2937;
+  }
+  
+  .cancel-btn:hover {
+    background: #d1d5db;
+  }
+  
+  /* Smooth Animation */
+  button:active {
+    transform: scale(0.98);
+  }
+  

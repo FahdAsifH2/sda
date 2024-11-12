@@ -1,0 +1,125 @@
+/* Reset Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Background Animation */
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Background & Main Container */
+body {
+    background: linear-gradient(120deg, #4f46e5, #6366f1, #3b82f6, #2563eb);
+    background-size: 300% 300%;
+    animation: gradientAnimation 10s ease infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #ffffff;
+}
+
+/* Admin Panel Container */
+.admin-panel-container {
+    text-align: center;
+    padding: 24px;
+    max-width: 1000px; /* Increased max width */
+}
+
+h1 {
+    margin-bottom: 24px;
+    font-size: 2.5rem;
+}
+
+/* Card Grid Container */
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px; /* Increased gap for more spacing */
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Card Styles */
+.card {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    width: 100%; /* Full width in grid */
+    height: 180px; /* Increased height */
+    padding: 20px;
+    cursor: pointer;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Card Content */
+.card h2 {
+    color: #4f46e5;
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+}
+
+.card p {
+    font-size: 1rem;
+    color: #6b7280;
+}
+
+/* Hover and Active Transitions */
+.card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(79, 70, 229, 0.1);
+    border-radius: 16px;
+    transform: scale(0);
+    transition: transform 0.4s ease;
+}
+
+.card:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+}
+
+.card:hover::after {
+    transform: scale(1.4);
+}
+
+/* Card: Student */
+#student-card {
+    border-top: 5px solid #4f46e5;
+}
+
+#student-card:hover {
+    border-top: 5px solid #3b82f6;
+}
+
+/* Card: Admin */
+#admin-card {
+    border-top: 5px solid #6366f1;
+}
+
+#admin-card:hover {
+    border-top: 5px solid #2563eb;
+}

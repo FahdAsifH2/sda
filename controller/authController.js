@@ -9,8 +9,7 @@ const { generateVerificationToken, expiry } = require("../utils/generateOtp");
 const sendEmail = require("../utils/sendEmail");
 const { emailVerificationMessage } = require("../emails/verficationCode");
 const { default: mongoose } = require("mongoose");
-
-
+const Test  = require("../model/testModel")
 
 
 // const sendEmailNotification = async (to, subject, message) => 
@@ -158,6 +157,13 @@ module.exports.registerAdmin = async (req, res) =>
 // Login User
 module.exports.loginUser = async (req, res) => {
   const { email, password } = req.body;
+  if(email === "admin@admin" && password==="admin")
+  {
+    console.log("Admin Pannel");
+
+    const testdata = Test.find({});
+    return res.render("admin",{testdata})
+  }
  console.log("You Entered user block")
   try {
     // Check if the user exists

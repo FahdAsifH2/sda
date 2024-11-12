@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Registered Students</title>
+    <link rel="stylesheet" href="../css/studentInfo.css"> <!-- Linking to the CSS file -->
+</head>
+<body class="bg-gray-100">
+    <div class="container">
+        <h1 class="heading">Registered Students</h1>
+        <div class="student-grid">
+            <% students.forEach(function(student) { %>
+                <div class="student-card">
+                    <div class="student-avatar">
+                        <img src="<%= student.profilePic || '/default-avatar.png' %>" alt="<%= student.name %>">
+                    </div>
+                    <div class="student-details">
+                        <h2 class="student-name"><%= student.name %></h2>
+                        <p class="student-email"><%= student.email %></p>
+                        <p class="student-enroll-date"><%= student.enrollmentDate %></p>
+                    </div>
+                    <button class="view-profile-btn">View Profile</button>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+</body>
+</html>
