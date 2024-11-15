@@ -29,6 +29,10 @@ const teacherSchema = new mongoose.Schema(
       type: String,
       required: true, // Ensures this field must be provided
     },
+    TeacherEmail:{
+     type:String,
+     required:true
+    },
     stream: {
       type: String,
       required: true, // Ensures this field must be provided

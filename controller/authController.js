@@ -241,12 +241,7 @@ module.exports.registerTeacher = async (req, res) => {
     const { email, password, name, dob, phone, stream, subjects } = req.body;
     const hashedPassword = await createUser(email, password);
     
-    console.log("Subjects from request body:", subjects);
-    console.log("Name:", name);
-    console.log("Date of Birth:", dob);
-    console.log("Phone:", phone);
-    console.log("Stream:", stream);
-
+   console.log(req.body)
     const user = new User({
       _id: new mongoose.Types.ObjectId().toString(),
       name,
@@ -263,7 +258,7 @@ module.exports.registerTeacher = async (req, res) => {
       DateOfBirth: dob,
       phone,
       name,
-      email,
+      TeacherEmail:email,
       stream,
       subjects, // Set the selected subjects
     });

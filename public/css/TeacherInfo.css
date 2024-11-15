@@ -1,105 +1,94 @@
-/* General Styles */
-body {
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
     font-family: 'Arial', sans-serif;
-    background-color: #f5f7fa;
-    color: #333;
-    padding: 20px;
 }
 
-/* Container */
+body {
+    font-size: 16px;
+    line-height: 1.5;
+    background-color: #f7fafc;
+    color: #333;
+}
+
+/* Container for the content */
 .container {
+    width: 90%;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 2rem 0;
 }
 
 /* Heading */
 .heading {
     text-align: center;
-    font-size: 2.5rem;
-    color: #4A90E2;
-    margin-bottom: 30px;
-}
-
-/* Grid Layout */
-.teacher-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-}
-
-/* Teacher Card */
-.teacher-card {
-    background: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    transition: transform 0.2s ease-in-out;
-}
-
-.teacher-card:hover {
-    transform: translateY(-5px);
-}
-
-/* Teacher Details */
-.teacher-details {
-    margin-bottom: 15px;
-}
-
-.teacher-name {
-    font-size: 1.8rem;
+    font-size: 2rem;
     font-weight: bold;
-    color: #333;
-    margin-bottom: 10px;
+    margin-bottom: 2rem;
+    color: #2d3748;
 }
 
-.teacher-phone,
-.teacher-stream,
-.teacher-subjects,
-.teacher-dob {
-    font-size: 1rem;
-    color: #666;
-    margin: 5px 0;
+/* Grid for displaying student cards */
+.student-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
 }
 
-.teacher-phone strong,
-.teacher-stream strong,
-.teacher-subjects strong,
-.teacher-dob strong {
-    color: #4A90E2;
+/* Individual Student Card */
+.student-card {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.student-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Student Avatar */
+.student-avatar img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1rem;
+}
+
+/* Student Details */
+.student-details {
+    margin-bottom: 1rem;
+}
+
+.student-name {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #2d3748;
+    margin-bottom: 0.5rem;
+}
+
+.student-email, .student-enroll-date {
+    font-size: 0.875rem;
+    color: #4a5568;
 }
 
 /* View Profile Button */
 .view-profile-btn {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #4A90E2;
-    color: #fff;
+    padding: 0.5rem 1rem;
+    background-color: #4F46E5;
+    color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 0.25rem;
     cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
-    font-size: 1rem;
+    transition: background-color 0.3s;
 }
 
 .view-profile-btn:hover {
-    background-color: #357ABD;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .teacher-card {
-        padding: 15px;
-    }
-    
-    .heading {
-        font-size: 2rem;
-    }
-
-    .view-profile-btn {
-        font-size: 0.9rem;
-    }
+    background-color: #434190;
 }

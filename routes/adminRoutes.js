@@ -11,10 +11,9 @@ router.get("/studentInfo",async(req,res)=>
 {
   
 
-   console.log("Student info")
-   
+  
    const students = await studentModel.find()
-   console.log(students)
+ 
    res.render("studentInfo",{students})
    
 
@@ -23,6 +22,7 @@ router.get("/studentInfo",async(req,res)=>
 router.get("/teacher",async(req,res)=>
 {
    const teachers = await teacherModel.find({})
+   console.log(teachers)
    res.render("TeacherInfo",{teachers})
 })
 module.exports = router;

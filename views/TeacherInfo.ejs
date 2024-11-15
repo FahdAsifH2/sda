@@ -3,25 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Registered Teachers</title>
-    <link rel="stylesheet" href="../css/TeacherInfo.css"> <!-- Linking to the CSS file -->
+    <title>Registered Teachers</title>
+    <link rel="stylesheet" href="../css/studentInfo.css"> <!-- Linking to the CSS file -->
 </head>
 <body class="bg-gray-100">
     <div class="container">
         <h1 class="heading">Registered Teachers</h1>
-        <div class="teacher-grid">
-            <% teachers.forEach(function(teacher) { %>
-                <div class="teacher-card">
-                    <div class="teacher-details">
-                        <h2 class="teacher-name"><%= teacher.name %></h2>
-                        <p class="teacher-phone"><strong>Phone:</strong> <%= teacher.phone %></p>
-                        <p class="teacher-stream"><strong>Stream:</strong> <%= teacher.stream %></p>
-                        <p class="teacher-subjects"><strong>Subjects:</strong> <%= teacher.subjects.join(", ") %></p>
-                        <p class="teacher-dob"><strong>Date of Birth:</strong> <%= new Date(teacher.DateOfBirth).toLocaleDateString() %></p>
+        <div class="student-grid">
+            <% if (teachers.length > 0) { %>
+                <% teachers.forEach(function(teacher) { %>
+                    <div class="student-card">
+                        <!-- Teacher Details -->
+                        <div class="student-details">
+                            <h2 class="student-name"><%= teacher.name %></h2>
+                            <p class="teacher-email"><strong>Email:</strong> <%= teacher.userId.email || 'N/A' %></p>
+                            <p class="teacher-phone"><strong>Phone:</strong> <%= teacher.phone || 'N/A' %></p>
+                            <p class="teacher-dob"><strong>Date of Birth:</strong> 
+                                <%= teacher.DateOfBirth ? new Date(teacher.DateOfBirth).toDateString() : 'N/A' %>
+                            </p>
+                            <p class="teacher-stream"><strong>Stream:</strong> <%= teacher.stream || 'N/A' %></p>
+                            <p class="teacher-subjects"><strong>Subjects:</strong> 
+                                <%= teacher.subjects && teacher.subjects.length > 0 ? teacher.subjects.join(', ') : 'N/A' %>
+                            </p>
+                            <p class="teacher-tests"><strong>Number of Tests:</strong> <%= teacher.tests.length || 0 %></p>
+                        </div>
                     </div>
-                    <!-- <button class="view-profile-btn">View Profile</button> -->
-                </div>
-            <% }); %>
+                <% }); %>
+            <% } else { %>
+                <p>No teachers found.</p>
+            <% } %>
         </div>
     </div>
 </body>
