@@ -68,15 +68,27 @@ module.exports.registerStudent = async (req, res) =>
   {
 
     console.log("You just entered student")
-    const {email, password,mothername,fathername,collageName, name, dob, phone, stream ,test} = req.body;
+   // Destructure using the correct input names from the form
+   const {
+    email,
+    password,
+    motherName,
+    fatherName,
+    collageName,
+    studentName,
+    dateOfBirth,
+    phoneNumber,
+    stream,
+    test,
+  } = req.body;
 
 
-   console.log("Name:", name);
-   console.log("Date of Birth:", dob);
-   console.log("Phone:", phone);
+   console.log("Name:", studentName);
+   console.log("Date of Birth:", dateOfBirth);
+   console.log("Phone:", phoneNumber);
    console.log("Stream:", stream)
-   console.log("momName:", mothername);
-   console.log("dadName:", fathername);
+   console.log("momName:", motherName);
+   console.log("dadName:", fatherName);
    console.log("email", email);
    console.log("collage:", collageName);
    console.log("test:", test)
@@ -85,31 +97,32 @@ module.exports.registerStudent = async (req, res) =>
 
     const user = new User({
       _id: new mongoose.Types.ObjectId().toString(),
-      name: name,
+      name: studentName,
       email: email,
       password: hashedPassword,
       verificationCode: generateVerificationToken(),
       verificationCodeExpires: expiry(300),
       role: roles.student,
     });
-    const student = new Student(
-      {
+
+    const student = new Student({
       _id: new mongoose.Types.ObjectId().toString(),
       userId: user._id,
-      name,
-      email,
-      mothername,
-      fathername,
+      name: studentName,
+      Studentemail:email,
+      mothername: motherName,
+      fathername: fatherName,
       collageName,
-      phone,
+      phone: phoneNumber,
       stream,
-      dob,
-      test
+      dob: dateOfBirth,
+      test,
     });
+
     await user.save();
     await student.save();
     const message = emailVerificationMessage(user);
-    // await sendEmailNotification(user.email, message.subject, message.body);
+     await sendEmailNotification(user.email, message.subject, message.body);
 
     const token = TokenGenerator.generateToken(user._id);
 

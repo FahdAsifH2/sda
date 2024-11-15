@@ -9,11 +9,12 @@ router.get("/home", (req, res) => {
 
 router.get("/studentInfo",async(req,res)=>
 {
-  const students = await studentModel.find({});
+  
 
    console.log("Student info")
+   
+   const students = await studentModel.find()
    console.log(students)
-  
    res.render("studentInfo",{students})
    
 

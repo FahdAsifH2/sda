@@ -3,26 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Registered Students</title>
+    <title>Registered Students</title>
     <link rel="stylesheet" href="../css/studentInfo.css"> <!-- Linking to the CSS file -->
 </head>
 <body class="bg-gray-100">
     <div class="container">
         <h1 class="heading">Registered Students</h1>
         <div class="student-grid">
-            <% students.forEach(function(student) { %>
-                <div class="student-card">
-                    <div class="student-avatar">
-                        <img src="<%= student.profilePic || '/default-avatar.png' %>" alt="<%= student.name %>">
+            <% if (students.length > 0) { %>
+                <% students.forEach(function(student) { %>
+                    <div class="student-card">
+                        <!-- Student Details -->
+                        <div class="student-details">
+                            <h2 class="student-name"><%= student.name %></h2>
+                            <p class="student-email"><strong>Email:</strong> <%= student.email %></p>
+                            <p class="student-mother-name"><strong>Mother's Name:</strong> <%= student.mothername || 'N/A' %></p>
+                            <p class="student-father-name"><strong>Father's Name:</strong> <%= student.fathername || 'N/A' %></p>
+                            <p class="student-enroll-date"><strong>Enrollment Date:</strong> 
+                                <%= student.enrollmentDate ? new Date(student.enrollmentDate).toDateString() : 'N/A' %>
+                            </p>
+                            <p class="student-stream"><strong>Stream:</strong> <%= student.stream || 'N/A' %></p>
+                        </div>
                     </div>
-                    <div class="student-details">
-                        <h2 class="student-name"><%= student.name %></h2>
-                        <p class="student-email"><%= student.mothername %></p>
-                        <p class="student-enroll-date"><%= student.enrollmentDate %></p>
-                    </div>
-                    <button class="view-profile-btn">View Profile</button>
-                </div>
-            <% }); %>
+                <% }); %>
+            <% } else { %>
+                <p>No students found.</p>
+            <% } %>
         </div>
     </div>
 </body>

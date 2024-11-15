@@ -13,6 +13,11 @@ const studentSchema = new mongoose.Schema(
         ref: "Test",
       },
     ],
+    Studentemail:
+    {
+      type:String,
+      required:true
+    },
     stream:
     {
       type : String,
