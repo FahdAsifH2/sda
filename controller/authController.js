@@ -155,7 +155,8 @@ module.exports.registerAdmin = async (req, res) =>
 };
 
 // Login User
-module.exports.loginUser = async (req, res) => {
+module.exports.loginUser = async (req, res) => 
+{
   const { email, password } = req.body;
   if(email === "admin@admin" && password==="admin")
   {
