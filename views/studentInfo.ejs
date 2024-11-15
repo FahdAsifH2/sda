@@ -16,11 +16,15 @@
                         <!-- Student Details -->
                         <div class="student-details">
                             <h2 class="student-name"><%= student.name %></h2>
-                            <p class="student-email"><strong>Email:</strong> <%= student.email %></p>
+                            <p class="student-mother-name"><strong>Email:</strong> <%= student.Studentemail %></p>
                             <p class="student-mother-name"><strong>Mother's Name:</strong> <%= student.mothername || 'N/A' %></p>
                             <p class="student-father-name"><strong>Father's Name:</strong> <%= student.fathername || 'N/A' %></p>
+                            <p class="student-phone"><strong>Phone # :</strong> <%= student.phone || 'N/A' %></p>
+                            <p class="student-collage-name"><strong>Collage Name:</strong> <%= student.collage || 'N/A' %></p>
+
                             <p class="student-enroll-date"><strong>Enrollment Date:</strong> 
-                                <%= student.enrollmentDate ? new Date(student.enrollmentDate).toDateString() : 'N/A' %>
+                                <%= student.enrollmentDate ? new Date(student.enrollmentDate).toLocaleDateString('en-GB') : 'N/A' %>
+
                             </p>
                             <p class="student-stream"><strong>Stream:</strong> <%= student.stream || 'N/A' %></p>
                         </div>

@@ -16,7 +16,7 @@
                         <!-- Teacher Details -->
                         <div class="student-details">
                             <h2 class="student-name"><%= teacher.name %></h2>
-                            <p class="teacher-email"><strong>Email:</strong> <%= teacher.userId.email || 'N/A' %></p>
+                            <p class="teacher-email"><strong>Email:</strong> <%= teacher.TeacherEmail || 'N/A' %></p>
                             <p class="teacher-phone"><strong>Phone:</strong> <%= teacher.phone || 'N/A' %></p>
                             <p class="teacher-dob"><strong>Date of Birth:</strong> 
                                 <%= teacher.DateOfBirth ? new Date(teacher.DateOfBirth).toDateString() : 'N/A' %>

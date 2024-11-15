@@ -112,7 +112,7 @@ module.exports.registerStudent = async (req, res) =>
       Studentemail:email,
       mothername: motherName,
       fathername: fatherName,
-      collageName,
+      collage:collageName,
       phone: phoneNumber,
       stream,
       dob: dateOfBirth,
