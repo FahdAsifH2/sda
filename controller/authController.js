@@ -235,7 +235,8 @@ module.exports.verifyOtp = async (req, res) => {
   }
 };
 
-module.exports.registerTeacher = async (req, res) => {
+module.exports.registerTeacher = async (req, res) => 
+{
   console.log("You just entered registerTeacher route");
   try {
     const { email, password, name, dob, phone, stream, subjects } = req.body;

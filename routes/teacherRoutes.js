@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Test = require('../model/testModel'); // Make sure this points to the correct model
+const auth = require("../middlewares/isLoggedin"); // Import your authentication middleware
 
 // Route to render the teacher dashboard
 router.get('/home', (req, res) => 
@@ -9,7 +10,7 @@ router.get('/home', (req, res) =>
 });
 
 // Route to render the question form
-router.get('/questionForm', (req, res) => 
+router.get('/questionForm', auth.authenticate, (req, res) => 
 {
     res.render('teacher/questionForm');
 });
@@ -18,14 +19,14 @@ router.get('/questionForm', (req, res) =>
 // Route to handle question form submission
 
 
-  router.get("/editProfilePage",async (req,res)=>
+  router.get("/editProfilePage",auth.authenticate,async (req,res)=>
   {
     const tests = await Test.find({})
     res.render("editProfile")
   })
 
 // Route to handle question form submission
-router.post('/submit-question', async (req,res) => 
+router.post('/submit-question',auth.authenticate, async (req,res) => 
 {
      
     try 
@@ -45,7 +46,7 @@ router.post('/submit-question', async (req,res) =>
             ],
             testName:testName,
             correctOption: correctOption,
-            teacherId: null // Temporarily set to null (no authentication for now)
+            teacherId: req.user._id // Temporarily set to null (no authentication for now)
         });
 
         // Save the new question to the database
@@ -81,14 +82,15 @@ router.get('/confirmation', async (req, res) =>
 });
 
 
-router.get('/previewQuestions', async (req, res) => 
+router.get('/previewQuestions',auth.authenticate, async (req, res) => 
 {
     
     try 
     {
+        const teacherId = req.user._id;
         // Fetch all test documents from the database
         const tests = await Test.find({}); // You can filter by teacherId if necessary
-
+        console.log("Fetched Tests:", tests); 
         // Render the previewQuestions.ejs with the collected questions
         res.render('teacher/previewQuestions', { questions: tests });
     }
