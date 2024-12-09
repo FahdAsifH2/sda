@@ -1,3 +1,4 @@
+// zainab's code
 const mongoose = require("mongoose");
 
 const teacherSchema = new mongoose.Schema(
