@@ -1,6 +1,6 @@
 # SDA Project: Examination System (MEEN Stack)
 
-This project is a **University Examm Preporatory App** built using the **MEEN stack** (MongoDB, Express.js, EJS, and Node.js). It provides functionalities for students and teachers to interact with an examination system, including user authentication, profile management, exam solving, and more.
+This project is a **University Exam Preporatory App** built using the **MEEN stack** (MongoDB, Express.js, EJS, and Node.js). It provides functionalities for students and teachers to interact with an examination system, including user authentication, profile management, exam solving, and more.
 
 ---
 
